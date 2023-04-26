@@ -1,23 +1,21 @@
 import 'package:dineout/pages/home_page.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+
+class RegisterPage extends StatefulWidget {
+  const RegisterPage({super.key});
+
+  // final User? user = Auth().currentUser;
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
   var _formKey = GlobalKey<FormState>();
   var isLoading = false;
-
-  
-  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-  final TextEditingController emailController = new TextEditingController();
-  final TextEditingController passwordController = new TextEditingController();
-
 
   void _submit() {
     final isValid = _formKey.currentState?.validate();
@@ -32,6 +30,14 @@ class _LoginPageState extends State<LoginPage> {
     _formKey.currentState?.save();
   }
 
+  final emailTextEditController = new TextEditingController();
+  final fullNameTextEditController = new TextEditingController();
+  final passwordTextEditController = new TextEditingController();
+
+  final FocusNode _emailFocus = FocusNode();
+    final FocusNode _fullNameFocus = FocusNode();
+final FocusNode _passwordFocus = FocusNode();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,7 +45,7 @@ class _LoginPageState extends State<LoginPage> {
         elevation: 0.0,
         backgroundColor: Colors.white10,
         title: Text(
-          'Login / Signup',
+          'Register / Signup',
           style: TextStyle(
             color: Colors.black,
           ),
@@ -74,10 +80,9 @@ class _LoginPageState extends State<LoginPage> {
               ),
               TextFormField(
                 decoration: InputDecoration(labelText: 'E-Mail'),
-                keyboardType: TextInputType.emailAddress,
-                onFieldSubmitted: (value) {
-                  //Validator
-                },
+                // onFieldSubmitted: (value) {
+                //   //Validator
+                // },
                 validator: (value) {
                   if (value?.isEmpty == true ||
                       !RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
@@ -86,15 +91,38 @@ class _LoginPageState extends State<LoginPage> {
                   }
                   return null;
                 },
+                 controller: emailTextEditController,
+                      keyboardType: TextInputType.emailAddress,
+                      autofocus: true,
+                      textInputAction: TextInputAction.next,
+                      focusNode: _emailFocus,
+                       onFieldSubmitted: (term) {
+                        FocusScope.of(context).requestFocus(_fullNameFocus);
+                      },
               ),
+
               //box styling
+              SizedBox(
+                height: MediaQuery.of(context).size.width * 0.1,
+              ),
+              TextFormField(
+                decoration: InputDecoration(labelText: 'Name'),
+                keyboardType: TextInputType.name,
+                onFieldSubmitted: (value) {
+                  //Validator
+                },
+                 controller: fullNameTextEditController,
+                      autofocus: false,
+                      textInputAction: TextInputAction.next,
+                      focusNode: _fullNameFocus,
+              ),
               SizedBox(
                 height: MediaQuery.of(context).size.width * 0.1,
               ),
               //text input
               TextFormField(
                 decoration: InputDecoration(labelText: 'Password'),
-                keyboardType: TextInputType.emailAddress,
+                keyboardType: TextInputType.visiblePassword,
                 onFieldSubmitted: (value) {},
                 obscureText: true,
                 validator: (value) {
@@ -106,6 +134,10 @@ class _LoginPageState extends State<LoginPage> {
 
                   return null;
                 },
+                 autofocus: false,
+                      controller: passwordTextEditController,
+                      textInputAction: TextInputAction.next,
+                      focusNode: _passwordFocus,
               ),
               SizedBox(
                 height: MediaQuery.of(context).size.width * 0.1,
@@ -129,20 +161,27 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         ),
                       ),
-                      onPressed: () => {
-                            if (_formKey.currentState!.validate())
-                              {
-                                // If the form is valid, display a snackbar. In the real world,
-                                // you'd often call a server or save the information in a database.
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(content: Text('Logged In')),
-                                ),
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => HomePage()))
-                              }
-                          }
+                       onPressed: () {
+                        if (_formKey.currentState.validate()) {
+                          _firebaseAuth
+                              .createUserWithEmailAndPassword(
+                                  email: emailTextEditController.text,
+                                  password: passwordTextEditController.text)
+                              .then((onValue) {
+                            Firestore.instance
+                                .collection('users')
+                                .document(onValue.uid)
+                                .setData({
+                              'fullName': fullNameTextEditController.text,
+                              
+                            }).then((userInfoValue) {
+                              Navigator.of(context).pushNamed(HomePage.tag);
+                            });
+                          }).catchError((onError) {
+                            processError(onError);
+                          });
+                        }
+                      },
                       // color: Colors.orange,
                       ),
                 ),

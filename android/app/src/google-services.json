@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "728626330902",
+    "project_id": "dineout-flutter",
+    "storage_bucket": "dineout-flutter.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:728626330902:android:1cbe3bce5c8a39f782e437",
+        "android_client_info": {
+          "package_name": "com.janhavi.dineout"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "728626330902-36fhm8t1i2uob030uehk35q8scscee46.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC7R_G7oTVqMdYqBfXbFHyRw9Wsvf7_u_c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "728626330902-36fhm8t1i2uob030uehk35q8scscee46.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
