@@ -1,5 +1,5 @@
-import 'package:dineout/pages/profile_page.dart';
 import 'package:flutter/material.dart';
+import 'package:dineout/pages/profile_page.dart';
 
 void main() => runApp(MyDrawer());
 
