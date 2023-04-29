@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:dineout/pages/categories_page.dart';
 import 'package:dineout/pages/restaurant_details.dart';
 import 'package:dineout/widgets/drawer.dart';
 import 'package:flutter/material.dart';
@@ -57,7 +58,7 @@ class _HomePageState extends State<HomePage>
     print('Latitude: $latitude, Longitude: $longitude');
 
     List<Placemark> placemarks = await placemarkFromCoordinates(19.05, 72.917);
-    print(placemarks);
+    // print(placemarks);
 
     return placemarks;
   }
@@ -99,7 +100,8 @@ class _HomePageState extends State<HomePage>
                             return Text('Error: ${snapshot.error}');
                           } else if (snapshot.hasData) {
                             List<Placemark> placemarks = snapshot.data ?? [];
-                            String sublocality = placemarks[0].subLocality ?? '';
+                            String sublocality =
+                                placemarks[0].subLocality ?? '';
                             String locality = placemarks[0].locality ?? '';
                             return Row(
                               children: [
@@ -151,9 +153,9 @@ class _HomePageState extends State<HomePage>
                 ],
               ),
             ),
-      
+
             const SizedBox(height: 25),
-      
+
             //search box
             Container(
               margin: const EdgeInsets.only(left: 20, right: 20),
@@ -199,10 +201,10 @@ class _HomePageState extends State<HomePage>
                 ],
               ),
             ),
-      
+
             const SizedBox(height: 30),
             //carousel
-      
+
             // SliderScreen(),
             CarouselSlider(
               items: [
@@ -218,7 +220,7 @@ class _HomePageState extends State<HomePage>
                     ),
                   ),
                 ),
-      
+
                 //2nd Image of Slider
                 Container(
                   margin: const EdgeInsets.all(6.0),
@@ -231,7 +233,7 @@ class _HomePageState extends State<HomePage>
                     ),
                   ),
                 ),
-      
+
                 //3rd Image of Slider
                 Container(
                   margin: const EdgeInsets.all(6.0),
@@ -244,7 +246,7 @@ class _HomePageState extends State<HomePage>
                     ),
                   ),
                 ),
-      
+
                 //4th Image of Slider
                 Container(
                   margin: const EdgeInsets.all(6.0),
@@ -258,7 +260,7 @@ class _HomePageState extends State<HomePage>
                   ),
                 ),
               ],
-      
+
               //Slider Container properties
               options: CarouselOptions(
                 height: 140.0,
@@ -271,9 +273,9 @@ class _HomePageState extends State<HomePage>
                 viewportFraction: 0.8,
               ),
             ),
-      
+
             const SizedBox(height: 20),
-      
+
             //3 buttons
             Container(
               height: 40,
@@ -281,7 +283,7 @@ class _HomePageState extends State<HomePage>
               child: Center(
                 child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
+                    children: [
                       Text(
                         'Restaurants Near You',
                         style: TextStyle(
@@ -290,17 +292,27 @@ class _HomePageState extends State<HomePage>
                             fontWeight: FontWeight.bold),
                       ),
                       // GoogleFonts.lato(fontStyle: FontStyle.italic),
-                      Text(
-                        'VIEW ALL',
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Colors.red,
+                      //  navigate to categories page through text
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => CategoriesPage()),
+                          );
+                        },
+                        child: Text(
+                          'View All',
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Color.fromARGB(255, 247, 64, 64),
+                          ),
                         ),
-                      ),
+                      )
                     ]),
               ),
             ),
-      
+
             CarouselSlider(
               items: [
                 //1st Image of Slider
@@ -325,7 +337,7 @@ class _HomePageState extends State<HomePage>
                     ),
                   ),
                 ),
-      
+
                 //2nd Image of Slider
                 Container(
                   margin: const EdgeInsets.all(6.0),
@@ -338,7 +350,7 @@ class _HomePageState extends State<HomePage>
                     ),
                   ),
                 ),
-      
+
                 //3rd Image of Slider
                 Container(
                   margin: const EdgeInsets.all(6.0),
@@ -351,7 +363,7 @@ class _HomePageState extends State<HomePage>
                     ),
                   ),
                 ),
-      
+
                 //4th Image of Slider
                 Container(
                   margin: const EdgeInsets.all(6.0),
@@ -365,7 +377,7 @@ class _HomePageState extends State<HomePage>
                   ),
                 ),
               ],
-      
+
               //Slider Container properties
               options: CarouselOptions(
                 height: 180.0,
@@ -377,7 +389,7 @@ class _HomePageState extends State<HomePage>
                 viewportFraction: 0.8,
               ),
             ),
-      
+
             Container(
               height: 40,
               margin: const EdgeInsets.symmetric(horizontal: 7.0),

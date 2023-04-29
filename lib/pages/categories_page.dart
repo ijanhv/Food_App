@@ -1,4 +1,8 @@
+import 'dart:async';
+import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:dineout/models/restaurant.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class CategoriesPage extends StatefulWidget {
   const CategoriesPage({super.key});
@@ -8,7 +12,7 @@ class CategoriesPage extends StatefulWidget {
 }
 
 class _CategoriesPageState extends State<CategoriesPage> {
-   int _selectedIndex = 1;
+  int _selectedIndex = 1;
   static const List<Widget> _widgetOptions = <Widget>[
     Text('Index 0: Home'),
     Text('Index 1: Search'),
@@ -16,22 +20,58 @@ class _CategoriesPageState extends State<CategoriesPage> {
     Text('Index 3: Blog')
   ];
 
+  List<Restaurant> _restaurants = [];
+
+  Future<List<Restaurant>> _fetchRestaurants() async {
+    final QuerySnapshot snapshot =
+        await FirebaseFirestore.instance.collection('restaurants').get();
+
+    final List<Restaurant> restaurants = snapshot.docs.map((doc) {
+      final data = doc.data() as Map<String, dynamic>;
+
+      print("data is $data");
+      return Restaurant(
+        name: data['name']?.toString() ?? '',
+        address: data['address']?.toString() ?? '',
+        cost: data['cost']?.toString() ?? '0.0',
+        cuisine: data['cuisine']?.toString() ?? '',
+        image: data['image']?.toString() ?? '',
+        isOpen: data['isOpen'] as bool? ?? false,
+        closingTime: data['closingTime']?.toString() ?? '10 PM',
+        rating: data['rating']?.toString() ?? '0.0',
+      );
+    }).toList();
+
+    return restaurants;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchRestaurants().then((restaurants) {
+      setState(() {
+        _restaurants = restaurants;
+      });
+    });
+  }
+
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
   }
+
   @override
   Widget build(BuildContext context) {
+    print(_restaurants);
     return Scaffold(
       body: SingleChildScrollView(
-        
         child: Column(
           children: [
             Stack(
               children: [
                 Container(
-                  height: 190,
+                  height: 150,
                   decoration: BoxDecoration(
                     image: const DecorationImage(
                       image: NetworkImage(
@@ -61,188 +101,168 @@ class _CategoriesPageState extends State<CategoriesPage> {
                 )
               ],
             ),
-            ClipRRect(
-              borderRadius: BorderRadius.circular(10.0),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 6.0),
-                child: Card(
-                  elevation: 10,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Column(
-                    children: [
-                      Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(20),
-                              child: Image.network(
-                                "https://b.zmtcdn.com/data/pictures/4/19310144/48b152726cfdefe779349566363ce28d.jpg",
-                                height: 150,
-                                width: double.infinity,
-                                fit: BoxFit.cover
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Column(
-                            children: [
-                              Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    const Text("Mitron",
-                                        textAlign: TextAlign.left,
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 26,
-                                        )),
-                                  ],
-                                ),
-                                const SizedBox(height: 15),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "Hotel Jewel of Chembur, Chembur Suburbs",
-                                      style: TextStyle(fontSize: 12),
-                                      textAlign: TextAlign.left,
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(height: 10),
-                                Row(children: [
-                                  Text(
-                                    "₹ 1,500 for 2  ",
-                                    style: TextStyle(fontSize: 12),
-                                  ),
-                                  Text(
-                                    "Continental, Bevarges,Continental, Italian ",
-                                    style: TextStyle(
-                                        color: Color.fromARGB(255, 104, 104, 104),
-                                        fontSize: 12),
-                                  ),
-                                ]),
-                                const SizedBox(height: 10),
-                                Row(children: [
-                                  Text(
-                                    "Now Open ",
-                                    style: TextStyle(fontSize: 12, color: Colors.blue),
-                                  ),
-                                  Text("• "),
-                                  Text(
-                                    "Closes at 11:30 PM",
-                                    style: TextStyle(
-                                        color: Color.fromARGB(255, 104, 104, 104),
-                                        fontSize: 12),
-                                  ),
-                                ])
-                            ]
-                            ),
-                        
-                          ),
-                        ],
-                      ),
-                      
-                    ],
-                  ),
+            FutureBuilder<List<Restaurant>>(
+              future: _fetchRestaurants(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                } else if (snapshot.hasError) {
+                  print(snapshot.error);
+                  return Center(
+                    child: Text('Error fetching data'),
+                  );
+                } else {
+                  final restaurants = snapshot.data;
+                  print("restaurants $restaurants");
+                  return SingleChildScrollView(
+                    child: Column(
+                      children: restaurants
+                              ?.map((restaurant) => ClipRRect(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 6.0),
+                                      child: Card(
+                                        elevation: 3,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                        ),
+                                        child: Column(
+                                          children: [
+                                            Column(
+                                              children: [
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            20),
+                                                    child: Image.network(
+                                                      restaurant.image
+                                                          .toString(),
+                                                      height: 140,
+                                                      width: double.infinity,
+                                                      fit: BoxFit.cover,
+                                                    ),
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding: const EdgeInsets.all(
+                                                      10.0),
+                                                  child: Column(
+                                                    children: [
+                                                      Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                            
+                                                        children: [
+                                                          Text(
+                                                            restaurant.name
+                                                                as String,
+                                                            textAlign:
+                                                                TextAlign.left,
+                                                            style: TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              fontSize: 26,
+                                                            ),
+                                                          ),
+                                                          Row(
+                                                            children: [
+                                                               Icon(
+                                                            Icons.star,
+                                                            color: Colors
+                                                                .amber[500],
+                                                            size: 20,
+                                                          ),
+                                                          Text(
+                                                            restaurant.rating
+                                                                .toString(),
+                                                            style: TextStyle(
+                                                              fontSize: 12,
+                                                            ),
+                                                          ),
+                                                            ],
+                                                          )
+                                                         
+                                                        ],
 
-                ),
-              ),
+                                                        // display rating in the form of stars
+                                                      ),
+                                                      const SizedBox(
+                                                          height: 15),
+                                                      Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          Text(
+                                                            restaurant.address
+                                                                    ?.toString()
+                                                                    .substring(
+                                                                        0,
+                                                                        min(40,
+                                                                            restaurant.address.toString().length)) ??
+                                                                '',
+                                                            style: TextStyle(
+                                                                fontSize: 12),
+                                                            textAlign:
+                                                                TextAlign.left,
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      const SizedBox(
+                                                          height: 10),
+                                                      Row(children: [
+                                                        Text(
+                                                          "₹ ${restaurant.cost}",
+                                                          style: TextStyle(
+                                                              fontSize: 12),
+                                                        ),
+                                                        Text(
+                                                          restaurant.cuisine
+                                                                  ?.replaceAll(
+                                                                      '[', '')
+                                                                  ?.replaceAll(
+                                                                      ']',
+                                                                      '') ??
+                                                              '',
+                                                          style: TextStyle(
+                                                            color:
+                                                                Color.fromARGB(
+                                                                    255,
+                                                                    104,
+                                                                    104,
+                                                                    104),
+                                                            fontSize: 12,
+                                                          ),
+                                                        ),
+                                                      ]),
+                                                      const SizedBox(
+                                                          height: 10),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ))
+                              .toList() ??
+                          [],
+                    ),
+                  );
+                }
+              },
             ),
-            ClipRRect(
-              borderRadius: BorderRadius.circular(10.0),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 6.0),
-                child: Card(
-                  elevation: 10,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Column(
-                    children: [
-                      Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(20),
-                              child: Image.network(
-                                "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/4/e/o/p43650-15471099535c370641083b7.jpg?tr=tr:n-large",
-                                height: 150,
-                                width: double.infinity,
-                                fit: BoxFit.cover
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Column(
-                            children: [
-                              Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    const Text("Butterfly High",
-                                        textAlign: TextAlign.left,
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 26,
-                                        )),
-                                  ],
-                                ),
-                                const SizedBox(height: 15),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "Bandra Kurla Complex",
-                                      style: TextStyle(fontSize: 12),
-                                      textAlign: TextAlign.left,
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(height: 10),
-                                Row(children: [
-                                  Text(
-                                    "₹ 1,500 for 2  ",
-                                    style: TextStyle(fontSize: 12),
-                                  ),
-                                  Text(
-                                    "Continental, Bevarges,Continental, Italian ",
-                                    style: TextStyle(
-                                        color: Color.fromARGB(255, 104, 104, 104),
-                                        fontSize: 12),
-                                  ),
-                                ]),
-                                const SizedBox(height: 10),
-                                Row(children: [
-                                  Text(
-                                    "Now Open ",
-                                    style: TextStyle(fontSize: 12, color: Colors.blue),
-                                  ),
-                                  Text("• "),
-                                  Text(
-                                    "Closes at 11:30 PM",
-                                    style: TextStyle(
-                                        color: Color.fromARGB(255, 104, 104, 104),
-                                        fontSize: 12),
-                                  ),
-                                ])
-                            ]
-                            ),
-                        
-                          ),
-                        ],
-                      ),
-                      
-                    ],
-                  ),
-
-                ),
-              ),
-            )
           ],
         ),
       ),
@@ -251,12 +271,12 @@ class _CategoriesPageState extends State<CategoriesPage> {
         child: BottomNavigationBar(
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-                icon: Icon(Icons.home_rounded,
-                    color: Color.fromARGB(255, 95, 93, 93),
-                    
-                    ),
-                label: 'Home',
-                ),
+              icon: Icon(
+                Icons.home_rounded,
+                color: Color.fromARGB(255, 95, 93, 93),
+              ),
+              label: 'Home',
+            ),
             BottomNavigationBarItem(
                 icon: Icon(Icons.search,
                     color: Color.fromARGB(255, 173, 170, 170)),

@@ -1,0 +1,206 @@
+[
+    {
+        "name": "China Bistro",
+        "desc": "China Bistro is a Chinese restaurant located in the heart of the city. It is a great place to enjoy authentic Chinese food with your family and friends. The restaurant has a very pleasant ambience and the staff is very courteous. The food is delicious and the prices are reasonable. The restaurant is open from 11 am to 11 pm.",
+        "cuisine": ["Chinese", "Thai", "Asian"],
+        "cost": "Rs 1200 for 2",
+        "type": ["Casual Dining", "Bar"],
+        "address": "Shop 1, Plot D, Samruddhi Complex, Chincholi Bunder Road, Mindspace, Malad West, Mumbai",
+        "features": [
+            "Smoking Area",
+            "Air Conditioned",
+            "Wifi",
+            "Valet Parking Available",
+            "Home Delivery",
+            "Cards Accepted",
+            "Full Bar Available",
+            "Indoor Seating",
+            "Live Screening"
+        ],
+        "rating": "4.8",
+        "contact": "022 30151234",
+        "dineoutPay": "Yes",
+        "image": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.dineout.co.in%2Fmumbai%2Fchina-bistro-chembur-central-suburbs-19876&psig=AOvVaw1XQtx3GxiEtYMPqEDqrRjG&ust=1682752007783000&source=images&cd=vfe&ved=0CBEQjRxqFwoTCPCOiO-BzP4CFQAAAAAdAAAAABAE"
+
+    },
+    {
+        "name": "The Bar Stock Exchange",
+        "desc": "The Bar Stock Exchange is a unique concept bar located in the heart of the city. It is a great place to enjoy a drink with your friends. The bar has a very pleasant ambience and the staff is very courteous. The food is delicious and the prices are reasonable. The bar is open from 11 am to 1 am.",
+        "cuisine": ["Continental", "North Indian", "Chinese", "Italian"],
+        "cost": "Rs 1500 for 2",
+        "type": ["Casual Dining", "Bar"],
+        "address": "",
+        "features": [
+            "Smoking Area",
+            "Air Conditioned",
+            "Wifi",
+            "Valet Parking Available",
+            "Home Delivery",
+            "Cards Accepted",
+            "Full Bar Available",
+            "Indoor Seating",
+            "Live Screening"
+        ],
+        "rating": "4.8",
+        "contact": "022 30151234",
+        "dineoutPay": "Yes",
+        "image": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.dineout.co.in%2Fmumbai%2Fchina-bistro-chembur-central-suburbs-19876&psig=AOvVaw1XQtx3GxiEtYMPqEDqrRjG&ust=1682752007783000&source=images&cd=vfe&ved=0CBEQjRxqFwoTCPCOiO-BzP4CFQAAAAAdAAAAABAE"
+    },
+    {
+        "name": "Sigree Global Grill",
+        "desc": "Sigree Global Grill is a multi-cuisine restaurant located in the heart of the city. It is a great place to enjoy a meal with your family and friends. The restaurant has a very pleasant ambience and the staff is very courteous. The food is delicious and the prices are reasonable. The restaurant is open from 11 am to 11 pm.",
+        "cuisine": ["North Indian", "Chinese", "Continental", "Italian"],
+        "cost": "Rs 1200 for 2",
+        "type": ["Casual Dining", "Bar"],
+        "address": "Ventura Building, 1st Floor, Hiranandani Business Park, Central Avenue Road, Powai Near D-Mart, Powai 400076",
+        "features": [
+            "Smoking Area",
+            "Air Conditioned",
+            "Valet Parking Available",
+            "Home Delivery",
+            "Cards Accepted",
+            "Full Bar Available",
+            "Indoor Seating",
+            "Live Screening"
+
+        ],
+        "rating": "4.5",
+        "contact": "022 30151234",
+        "dineoutPay": "Yes",
+        "image": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/9/s/u/p9884-16621888816312fd5171392.jpg?tr=tr:n-xlarge"
+
+    },
+    {
+        "name": "Jimis Burger",
+        "desc": "Jimis Burger is a fast food restaurant located in the heart of the city. It is a great place to enjoy a meal with your family and friends. The restaurant has a very pleasant ambience and the staff is very courteous. The food is delicious and the prices are reasonable. The restaurant is open from 11 am to 11 pm.",
+        "cuisine": ["Fast Food", "Burger", "American"],
+        "cost": "Rs 500 for 2",
+        "type": ["Casual Dining"],
+        "address": "Shop 25, Satra Plaza, Palm Beach Road, Sector 19D Vashi Navi Mumbai 400703",
+        "features": [
+            "Air Conditioned",
+            "Valet Parking Available",
+            "Home Delivery",
+            "Cards Accepted",
+            "Indoor Seating",
+            "Live Screening"
+
+        ],
+        "rating": "5.0",
+        "contact": "022 30151234",
+        "dineoutPay": "Yes",
+        "image": "https://res.cloudinary.com/dwzmsvp7f/image/fetch/q_75,f_auto,w_1316/https%3A%2F%2Fmedia.insider.in%2Fimage%2Fupload%2Fc_crop%2Cg_custom%2Fv1568205241%2Ffeozva8gonxjrgby4ooi.jpg"
+    },
+    {
+        "name": "The Taj Mahal Palace",
+        "desc": "The Taj Mahal Palace is a luxury hotel and iconic landmark in Mumbai. It offers a range of dining options, including Indian, Asian, and international cuisines. The hotel is known for its elegant ambiance and impeccable service.",
+        "cuisine": ["Indian", "Asian", "International"],
+        "cost": "Rs 5000 for 2",
+        "type": ["Fine Dining", "Luxury"],
+        "address": "Apollo Bunder, Colaba, Mumbai",
+        "features": [
+          "Sea View",
+          "Live Music",
+          "Valet Parking",
+          "Outdoor Seating"
+        ],
+        "rating": "4.9",
+        "contact": "022 6665 3271",
+        "dineoutPay": "Yes",
+        "image": "https://media.cntraveler.com/photos/5dee7549d606100008e741f0/16:9/w_2560,c_limit/The-Taj-Mahal-Palace_2019_Taj-Mahal-Palace,-Mumbai---Corridor-1.jpg"
+      },
+      {
+        "name": "Leopold Cafe",
+        "desc": "Leopold Cafe is a historic restaurant and bar in Colaba, Mumbai. It is famous for its lively atmosphere, extensive menu, and affordable prices. The cafe serves a variety of cuisines, including Indian, Continental, and Chinese.",
+        "cuisine": ["Indian", "Continental", "Chinese"],
+        "cost": "Rs 800 for 2",
+        "type": ["Casual Dining", "Bar"],
+        "address": "Colaba Causeway, Colaba, Mumbai",
+        "features": [
+          "Live Music",
+          "Outdoor Seating",
+          "Smoking Area",
+          "Wifi"
+        ],
+        "rating": "4.5",
+        "contact": "022 2282 8185",
+        "dineoutPay": "No",
+        "image": "https://b.zmtcdn.com/data/reviews_photos/17e/11d304f79e4a36a7d040c2d576e7117e_1456069968.jpg?fit=around|771.75:416.25&crop=771.75:416.25;*,*"
+      },
+      {
+        "name": "The Bombay Canteen",
+        "desc": "The Bombay Canteen is a trendy restaurant in Lower Parel, Mumbai, offering a modern take on Indian cuisine. The menu features innovative dishes inspired by regional flavors and ingredients. The restaurant has a vibrant ambiance and a lively bar.",
+        "cuisine": ["Indian", "Fusion"],
+        "cost": "Rs 1500 for 2",
+        "type": ["Casual Dining", "Bar"],
+        "address": "Kamala Mills Compound, Lower Parel, Mumbai",
+        "features": [
+          "Bar",
+          "Live Music",
+          "Outdoor Seating",
+          "Wifi"
+        ],
+        "rating": "4.7",
+        "contact": "022 4966 6666",
+        "dineoutPay": "Yes",
+        "image": "https://b.zmtcdn.com/data/pictures/2/16541542/c7ce3301b7cb36444a0c91694bd554ec.jpg?fit=around|771.75:416.25&crop=771.75:416.25;*,*"
+      },
+      {
+        "name": "Gajalee",
+        "desc": "Gajalee is a renowned seafood restaurant with multiple branches in Mumbai. It is known for serving delicious coastal cuisine, including fresh seafood dishes prepared with authentic flavors. The restaurant offers a casual dining experience with a lively ambiance.",
+        "cuisine": ["Seafood", "Coastal"],
+        "cost": "Rs 1500 for 2",
+        "type": ["Casual Dining"],
+        "address": "Hanuman Road, Vile Parle East, Mumbai",
+        "features": [
+          "Outdoor Seating",
+          "Home Delivery",
+          "Wifi",
+          "Parking Available"
+        ],
+        "rating": "4.6",
+        "contact": "022 2614 2585",
+        "dineoutPay": "No",
+        "image": "https://im.whatshot.in/img/2020/Jan/gajalee-1580104084.jpg"
+      },
+      {
+        "name": "Trishna",
+        "desc": "Trishna is a popular seafood restaurant located in Fort, Mumbai. It is known for its delectable coastal delicacies, including butter garlic crab and prawns masala. The restaurant has a rustic charm and offers a fine dining experience.",
+        "cuisine": ["Seafood", "Coastal"],
+        "cost": "Rs 2000 for 2",
+        "type": ["Fine Dining"],
+        "address": "7, Sai Baba Marg, Kala Ghoda, Fort, Mumbai",
+        "features": [
+          "Air Conditioned",
+          "Wifi",
+          "Reservations",
+          "Bar"
+        ],
+        "rating": "4.7",
+        "contact": "022 2270 3213",
+        "dineoutPay": "Yes",
+        "image": "https://media.cntraveler.com/photos/5a78cdcf78fa8363d2ed7cda/16:9/w_2560,c_limit/Trishna__2018_TRISHNA0328.jpg"
+      },
+      {
+        "name": "Indigo Delicatessen",
+        "desc": "Indigo Delicatessen is a popular cafe and deli known for its gourmet sandwiches, salads, and European-inspired dishes. It offers a relaxed and cozy ambiance, making it a perfect spot for brunch or a casual meal with friends.",
+        "cuisine": ["Cafe", "European"],
+        "cost": "Rs 1200 for 2",
+        "type": ["Casual Dining"],
+        "address": "4 Mandlik Road, Colaba, Mumbai",
+        "features": [
+          "Wifi",
+          "Outdoor Seating",
+          "Home Delivery",
+          "Pet-Friendly"
+        ],
+        "rating": "4.5",
+        "contact": "022 6636 8982",
+        "dineoutPay": "Yes",
+        "image": "https://indigodeli.com/img/rest-img.jpg"
+      }
+
+
+
+
+]
