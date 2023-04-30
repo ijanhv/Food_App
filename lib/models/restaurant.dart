@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 class Restaurant {
   final String? name;
   final String? address;
@@ -7,8 +9,15 @@ class Restaurant {
   final bool? isOpen;
   final String? closingTime;
   final String? rating;
+  final String? id;
+  final String? desc;
+  final String? contact;
+  final String? features;
+  final String? dineoutPay;
+  
 
   Restaurant({
+    this.id,
     this.name,
     this.address,
     this.cost,
@@ -17,5 +26,10 @@ class Restaurant {
     this.isOpen,
     this.closingTime,
     this.rating,
+    this.desc,
+    this.contact,
+    this.features,
+    this.dineoutPay,
+
   });
 }

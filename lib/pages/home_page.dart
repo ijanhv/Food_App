@@ -1,6 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dineout/pages/categories_page.dart';
-import 'package:dineout/pages/restaurant_details.dart';
 import 'package:dineout/widgets/drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:dineout/provider/user_provider.dart';
@@ -26,6 +25,39 @@ class _HomePageState extends State<HomePage>
     Text('Index 2: Events'),
     Text('Index 3: Blog')
   ];
+
+  List<Map<String, dynamic>> carouselData = [
+    {
+      'discount': '30%',
+      'color': Colors.green,
+    },
+    {
+      'discount': '20%',
+      'color': Colors.purple,
+    },
+    {
+      'discount': '15%',
+      'color': Colors.blue,
+    },
+    {
+      'discount': '5%',
+      'color': Colors.red,
+    },
+  ];
+
+  List<String> imageList = [
+    "https://cdn.zoutons.com/images/originals/blog/Zomato_coupon_hack_1645609954.png",
+    "https://cdn.zoutons.com/images/originals/blog/offerbanner1312_1648621628.png",
+    "https://cdn.zoutons.com/images/originals/blog/3zomato_1636547645.png",
+    "https://cdn.zoutons.com/images/originals/blog/Zomato_coupon_hack_1645609954.png",
+  ];
+
+  List<String> offerImageList = [
+  "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/7/h/t/p73265-15776215715e089843df11f.jpg?tr=tr:n-medium",
+  "https://assets.architecturaldigest.in/photos/6008216856e01e341bc35381/master/pass/Pa-Pa-Ya-BKC-Mumbai1-1366x768.jpg",
+  "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/9/h/q/p96974-1633587070615e8f7eb5782.jpg?w=400",
+  "https://im.whatshot.in/img/2020/Sep/11985-d-1601060953.jpg",
+];
 
   void _onItemTapped(int index) {
     setState(() {
@@ -205,63 +237,19 @@ class _HomePageState extends State<HomePage>
             const SizedBox(height: 30),
             //carousel
 
-            // SliderScreen(),
             CarouselSlider(
-              items: [
-                //1st Image of Slider
-                Container(
+              items: imageList.map((imageUrl) {
+                return Container(
                   margin: const EdgeInsets.all(6.0),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8.0),
-                    image: const DecorationImage(
-                      image: NetworkImage(
-                          "https://cdn.zoutons.com/images/originals/blog/Zomato_coupon_hack_1645609954.png"),
+                    image: DecorationImage(
+                      image: NetworkImage(imageUrl),
                       fit: BoxFit.cover,
                     ),
                   ),
-                ),
-
-                //2nd Image of Slider
-                Container(
-                  margin: const EdgeInsets.all(6.0),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8.0),
-                    image: const DecorationImage(
-                      image: NetworkImage(
-                          "https://cdn.zoutons.com/images/originals/blog/offerbanner1312_1648621628.png"),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-
-                //3rd Image of Slider
-                Container(
-                  margin: const EdgeInsets.all(6.0),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8.0),
-                    image: const DecorationImage(
-                      image: NetworkImage(
-                          "https://cdn.zoutons.com/images/originals/blog/3zomato_1636547645.png"),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-
-                //4th Image of Slider
-                Container(
-                  margin: const EdgeInsets.all(6.0),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8.0),
-                    image: const DecorationImage(
-                      image: NetworkImage(
-                          "https://cdn.zoutons.com/images/originals/blog/Zomato_coupon_hack_1645609954.png"),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-              ],
-
-              //Slider Container properties
+                );
+              }).toList(),
               options: CarouselOptions(
                 height: 140.0,
                 enlargeCenterPage: true,
@@ -313,82 +301,61 @@ class _HomePageState extends State<HomePage>
               ),
             ),
 
-            CarouselSlider(
-              items: [
-                //1st Image of Slider
-                InkWell(
-                  onTap: () => {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => RestaurantDetails()))
-                  },
-                  child: Card(
-                    child: Container(
-                      margin: const EdgeInsets.all(6.0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8.0),
-                        image: const DecorationImage(
-                          image: NetworkImage(
-                              "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/7/h/t/p73265-15776215715e089843df11f.jpg?tr=tr:n-medium"),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-
-                //2nd Image of Slider
-                Container(
-                  margin: const EdgeInsets.all(6.0),
+CarouselSlider(
+  items: offerImageList.map((imageUrl) {
+    return InkWell(
+      onTap: () {
+        // Navigator.push(
+        //   context,
+        //   MaterialPageRoute(
+        //     builder: (context) => RestaurantDetails(),
+        //   ),
+        // );
+      },
+      child: Card(
+        child: Container(
+          margin: const EdgeInsets.all(6.0),
+          child: Column(
+            children: [
+              Expanded(
+                child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8.0),
-                    image: const DecorationImage(
-                      image: NetworkImage(
-                          "https://assets.architecturaldigest.in/photos/6008216856e01e341bc35381/master/pass/Pa-Pa-Ya-BKC-Mumbai1-1366x768.jpg"),
+                    image: DecorationImage(
+                      image: NetworkImage(imageUrl),
                       fit: BoxFit.cover,
                     ),
                   ),
                 ),
-
-                //3rd Image of Slider
-                Container(
-                  margin: const EdgeInsets.all(6.0),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8.0),
-                    image: const DecorationImage(
-                      image: NetworkImage(
-                          "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/9/h/q/p96974-1633587070615e8f7eb5782.jpg?w=400"),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-
-                //4th Image of Slider
-                Container(
-                  margin: const EdgeInsets.all(6.0),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8.0),
-                    image: const DecorationImage(
-                      image: NetworkImage(
-                          "https://im.whatshot.in/img/2020/Sep/11985-d-1601060953.jpg"),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-              ],
-
-              //Slider Container properties
-              options: CarouselOptions(
-                height: 180.0,
-                enlargeCenterPage: true,
-                // autoPlay: true,
-                aspectRatio: 1 / 1,
-                autoPlayCurve: Curves.fastOutSlowIn,
-                enableInfiniteScroll: true,
-                viewportFraction: 0.8,
               ),
-            ),
+              Padding(
+                padding: const EdgeInsets.all(2.0),
+                child: Text(
+                  "Image Title",
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }).toList(),
+  options: CarouselOptions(
+    height: 180.0,
+    enlargeCenterPage: true,
+    // autoPlay: true,
+    aspectRatio: 1 / 1,
+    autoPlayCurve: Curves.fastOutSlowIn,
+    enableInfiniteScroll: true,
+    viewportFraction: 1.5/2,
+  ),
+),
+
+
 
             Container(
               height: 40,
@@ -405,6 +372,87 @@ class _HomePageState extends State<HomePage>
                             fontWeight: FontWeight.bold),
                       ),
                     ]),
+              ),
+            ),
+
+            CarouselSlider(
+              items: carouselData.map((item) {
+                return InkWell(
+                  onTap: () {
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //     builder: (context) => RestaurantDetails(),
+                    //   ),
+                    // );
+                  },
+                  child: Card(
+                    child: Container(
+                      width: MediaQuery.of(context).size.width *
+                          0.7, // Reduce width to 70% of the screen width
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10.0),
+                        color: item['color'],
+                      ),
+                      child: Container(
+                        width: MediaQuery.of(context).size.width *
+                            0.7, // Reduce width to 70% of the screen width
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10.0),
+                          color: item['color'].withOpacity(0.5),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(15.0),
+                          child: Align(
+                            alignment: Alignment
+                                .centerLeft, // Align the text to the left
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'FLAT',
+                                  style: TextStyle(
+                                    backgroundColor: Colors.white,
+                                    fontSize: 18.0,
+                                    fontWeight: FontWeight.bold,
+                                    color: item['color'],
+                                  ),
+                                ),
+                                SizedBox(
+                                    height:
+                                        5.0), // Add some space between the text and the bottom border
+                                Text(
+                                  item['discount'],
+                                  style: TextStyle(
+                                    fontSize: 18.0,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                SizedBox(
+                                    height:
+                                        5.0), // Add some space between the text and the bottom border
+                                Text(
+                                  'Instant Discount',
+                                  style: TextStyle(
+                                    fontSize: 18.0,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+              }).toList(),
+              options: CarouselOptions(
+                height: 150.0,
+                autoPlayCurve: Curves.fastOutSlowIn,
+                viewportFraction: 1 / 3,
               ),
             ),
           ],
