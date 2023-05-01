@@ -1,5 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dineout/pages/categories_page.dart';
+import 'package:dineout/pages/search.dart';
+import 'package:dineout/widgets/bottomNavigation.dart';
 import 'package:dineout/widgets/drawer.dart';
 import 'package:dineout/widgets/grid.dart';
 import 'package:flutter/material.dart';
@@ -19,13 +21,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
-  int _selectedIndex = 0;
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text('Index 0: Home'),
-    Text('Index 1: Search'),
-    Text('Index 2: Events'),
-    Text('Index 3: Blog')
-  ];
+ 
 
   List<Map<String, dynamic>> carouselData = [
     {
@@ -98,11 +94,7 @@ class _HomePageState extends State<HomePage>
     }
   ];
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
+
 
   void _getLocationPermission() async {
     LocationPermission permission = await Geolocator.requestPermission();
@@ -246,9 +238,20 @@ class _HomePageState extends State<HomePage>
                     children: [
                       Flexible(
                         flex: 1,
-                        child: TextField(
-                          cursorColor: Colors.grey,
-                          decoration: InputDecoration(
+                        child: GestureDetector(
+                          onTap: () {
+                            print('search');
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => SearchPage(),
+                              ),
+                            );
+                          },
+                          child: TextField(
+                            enabled: false,
+                            cursorColor: Colors.grey,
+                            decoration: InputDecoration(
                               fillColor: Colors.white,
                               filled: true,
                               border: OutlineInputBorder(
@@ -256,19 +259,19 @@ class _HomePageState extends State<HomePage>
                                 borderSide: BorderSide.none,
                               ),
                               hintText: 'Search Anything...',
-                              hintStyle: const TextStyle(
-                                  color: Colors.grey, fontSize: 12),
+                              hintStyle:
+                                  TextStyle(color: Colors.grey, fontSize: 12),
                               prefixIcon: Container(
                                 padding: const EdgeInsets.all(5),
-                                // child: SvgPicture.asset(
-                                //     'assets/images/search-icon.svg'),
-                                child: const Icon(Icons.search),
+                                child: Icon(Icons.search),
                                 width: 10,
-                              )),
+                              ),
+                            ),
+                          ),
                         ),
                       ),
                     ],
-                  )
+                  ),
                 ],
               ),
             ),
@@ -323,7 +326,8 @@ class _HomePageState extends State<HomePage>
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => CategoriesPage(title: 'All-in-One')),
+                                builder: (context) =>
+                                    CategoriesPage(title: 'All-in-One')),
                           );
                         },
                         child: Text(
@@ -505,36 +509,7 @@ class _HomePageState extends State<HomePage>
         ),
       ),
       drawer: MyDrawer(),
-      bottomNavigationBar: ClipRRect(
-        borderRadius: BorderRadius.circular(20.0),
-        child: BottomNavigationBar(
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-                icon: Icon(Icons.home_rounded,
-                    color: Color.fromARGB(255, 95, 93, 93)),
-                label: 'Home'),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.search,
-                    color: Color.fromARGB(255, 173, 170, 170)),
-                label: 'Search'),
-            BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.event,
-                  color: Color.fromARGB(255, 173, 170, 170),
-                ),
-                label: 'Events'),
-            BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.messenger_outline_sharp,
-                  color: Color.fromARGB(255, 173, 170, 170),
-                ),
-                label: 'Blog'),
-          ],
-          currentIndex: _selectedIndex,
-          selectedItemColor: Color.fromARGB(255, 247, 64, 64),
-          onTap: _onItemTapped,
-        ),
-      ),
+      bottomNavigationBar: BottomNavbar()
     );
   }
 }

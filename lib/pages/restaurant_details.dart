@@ -1,14 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dineout/firebase_util.dart';
 import 'package:dineout/models/restaurant.dart';
+import 'package:dineout/pages/bill_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 
-
 class RestaurantDetails extends StatefulWidget {
-   final Restaurant restaurant;
-
+  final Restaurant restaurant;
 
   const RestaurantDetails({Key? key, required this.restaurant})
       : super(key: key);
@@ -19,53 +18,49 @@ class RestaurantDetails extends StatefulWidget {
 
 class _RestaurantDetailsState extends State<RestaurantDetails> {
   List<String> tabTitles = ["Offers", "Reviews", "Menu", "Reviews"];
-    Restaurant? _restaurant; // Declare _restaurant variable here
-
+  Restaurant? _restaurant; // Declare _restaurant variable here
 
   Future<void> _fetchRestaurant() async {
-  try {
-    final DocumentSnapshot snapshot = await FirebaseFirestore.instance
-        .collection('restaurants')
-        .doc(widget.restaurant.id)
-        .get();
+    try {
+      final DocumentSnapshot snapshot = await FirebaseFirestore.instance
+          .collection('restaurants')
+          .doc(widget.restaurant.id)
+          .get();
 
-    if (snapshot.exists) {
-      final data = snapshot.data() as Map<String, dynamic>;
-      print('Document data: $data');
+      if (snapshot.exists) {
+        final data = snapshot.data() as Map<String, dynamic>;
+        print('Document data: $data');
 
-      setState(() {
-        _restaurant = Restaurant(
-          name: data['name']?.toString() ?? '',
-          address: data['address']?.toString() ?? '',
-          cost: data['cost']?.toString() ?? '0.0',
-          cuisine: data['cuisine']?.toString() ?? '',
-          image: data['image']?.toString() ?? '',
-          isOpen: data['isOpen'] as bool? ?? false,
-          closingTime: data['closingTime']?.toString() ?? '10 PM',
-          rating: data['rating']?.toString() ?? '0.0',
-          id: widget.restaurant.id,
-          desc: data['desc']?.toString() ?? '',
-          contact: data['contact']?.toString() ?? '',
-          features: data['features'] ?? [],
-          dineoutPay: data['dineoutPay']?.toString() ?? '',
-        );
-      });
-    } else {
-      print('Document does not exist');
+        setState(() {
+          _restaurant = Restaurant(
+            name: data['name']?.toString() ?? '',
+            address: data['address']?.toString() ?? '',
+            cost: data['cost']?.toString() ?? '0.0',
+            cuisine: data['cuisine']?.toString() ?? '',
+            image: data['image']?.toString() ?? '',
+            isOpen: data['isOpen'] as bool? ?? false,
+            closingTime: data['closingTime']?.toString() ?? '10 PM',
+            rating: data['rating']?.toString() ?? '0.0',
+            id: widget.restaurant.id,
+            desc: data['desc']?.toString() ?? '',
+            contact: data['contact']?.toString() ?? '',
+            features: data['features'] ?? [],
+            dineoutPay: data['dineoutPay']?.toString() ?? '',
+          );
+        });
+      } else {
+        print('Document does not exist');
+      }
+    } catch (e) {
+      print('Error fetching restaurant: $e');
     }
-  } catch (e) {
-    print('Error fetching restaurant: $e');
   }
-}
 
- @override
+  @override
   void initState() {
     super.initState();
     _fetchRestaurant();
-  
   }
-
- 
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +68,7 @@ class _RestaurantDetailsState extends State<RestaurantDetails> {
     print(_restaurant?.address);
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Color.fromARGB(255, 240, 240, 240),
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
@@ -91,9 +86,7 @@ class _RestaurantDetailsState extends State<RestaurantDetails> {
             ),
           ),
           IconButton(
-            onPressed: () {
-
-            },
+            onPressed: () {},
             icon: const Icon(
               Icons.share,
               color: Colors.black,
@@ -102,7 +95,6 @@ class _RestaurantDetailsState extends State<RestaurantDetails> {
         ],
       ),
       body: SingleChildScrollView(
-
         child: Column(children: [
           Stack(
             alignment: Alignment(0, 6),
@@ -112,22 +104,19 @@ class _RestaurantDetailsState extends State<RestaurantDetails> {
                 height: 250,
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: NetworkImage(
-                        widget.restaurant.image ??
-                            ''),
+                    image: NetworkImage(widget.restaurant.image ?? ''),
                     fit: BoxFit.cover,
                   ),
                 ),
               ),
-              
+
               Container(
-                child: Column(children: [                  
+                child: Column(children: [
                   ClipRRect(
-                    borderRadius: BorderRadius.circular(30.0),
+                    borderRadius: BorderRadius.circular(40.0),
                     child: Card(
                       margin: EdgeInsets.all(10.0),
-                      elevation: 5.0,
-                      shadowColor: Color.fromARGB(255, 169, 169, 169),                      
+                      elevation: 3.0,
                       // color: Colors.amber,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
@@ -135,45 +124,33 @@ class _RestaurantDetailsState extends State<RestaurantDetails> {
                           children: [
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: List.generate(tabTitles.length, (index) {
+                              children:
+                                  List.generate(tabTitles.length, (index) {
                                 return Text(tabTitles[index]);
                               }),
                             ),
                             Divider(
                               color: Color.fromARGB(255, 216, 76, 76),
                             ),
-                            
+
                             Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                Text(
-                                     widget.restaurant.name ?? '',
+                                Text(widget.restaurant.name ?? '',
                                     textAlign: TextAlign.left,
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 26,
-                                    )
-                                    ),
+                                    )),
                               ],
                             ),
-                            const SizedBox(height: 15),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                SingleChildScrollView(
-                                
-
-                                  // scrollDirection: Axis.horizontal,
-                                  child: Text(
-                                  
-                                    widget.restaurant.address ?? '',
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(fontSize: 12),
-                                    textAlign: TextAlign.left,
-                                  ),
-                                ),
-                              ],
+                            // const SizedBox(height: 10),
+                            Padding(
+                              padding: const EdgeInsets.all(5.0),
+                              child: Text(
+                                widget.restaurant.address ?? '',
+                                style: TextStyle(fontSize: 11),
+                              ),
                             ),
                             const SizedBox(height: 15),
                             Row(children: [
@@ -182,12 +159,10 @@ class _RestaurantDetailsState extends State<RestaurantDetails> {
                                 style: TextStyle(fontSize: 12),
                               ),
                               Text(
-                                widget.restaurant.cuisine?.replaceAll('[', '')
-                                                                      ?.replaceAll(
-                                                                          ']',
-                                                                          '') ??
-                                                                  '', 
-                                
+                                widget.restaurant.cuisine
+                                        ?.replaceAll('[', '')
+                                        ?.replaceAll(']', '') ??
+                                    '',
                                 style: TextStyle(
                                     color: Color.fromARGB(255, 104, 104, 104),
                                     fontSize: 12),
@@ -199,11 +174,13 @@ class _RestaurantDetailsState extends State<RestaurantDetails> {
                                 widget.restaurant.isOpen == true
                                     ? "Open Now"
                                     : "Closed Now",
-                                style: TextStyle(fontSize: 12, color: Colors.blue),
+                                style:
+                                    TextStyle(fontSize: 12, color: Colors.blue),
                               ),
                               Text("• "),
                               Text(
-                                "Closes at ${widget.restaurant.closingTime}" ?? '',
+                                "Closes at ${widget.restaurant.closingTime}" ??
+                                    '',
                                 style: TextStyle(
                                     color: Color.fromARGB(255, 104, 104, 104),
                                     fontSize: 12),
@@ -218,45 +195,57 @@ class _RestaurantDetailsState extends State<RestaurantDetails> {
               )
             ],
           ),
-          const SizedBox(height: 130),
+          const SizedBox(height: 140),
           ClipRRect(
             borderRadius: BorderRadius.circular(30.0),
-            child: Card(
-              margin: EdgeInsets.all(10.0),
-              elevation: 10.0,
-              child: Column(children: [
-                Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: Row(
-                    children: [
-                      Text(
-                        "Pay Bill",
-                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                      )
-                    ],
+            child: InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => BillPage(restaurant: widget.restaurant),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Save extra 5% using PromoCash",
-                        textAlign: TextAlign.left,
-                        style: TextStyle(fontSize: 10),
-                      ),
-                    ],
+                );
+              },
+              child: Card(
+                
+                margin: EdgeInsets.all(10.0),
+                elevation: 3.0,
+                child: Column(children: [
+                  Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: Row(
+                      children: [
+                        Text(
+                          "Pay Bill",
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        )
+                      ],
+                    ),
                   ),
-                )
-              ]),
+                  Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Pay your bill using Dineout Pay to get ${widget.restaurant.discount}% Off",
+                          textAlign: TextAlign.left,
+                          style: TextStyle(fontSize: 14),
+                        ),
+                      ],
+                    ),
+                  )
+                ]),
+              ),
             ),
           ),
           ClipRRect(
             borderRadius: BorderRadius.circular(30.0),
             child: Card(
               margin: EdgeInsets.all(8.0),
-              elevation: 10.0,
+              elevation: 3.0,
               child: Column(children: [
                 Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -264,7 +253,10 @@ class _RestaurantDetailsState extends State<RestaurantDetails> {
                     padding: const EdgeInsets.symmetric(vertical: 10.0),
                     child: Row(
                       children: [
-                        Icon(Icons.dinner_dining_sharp),
+                        Icon(
+                          Icons.dinner_dining_sharp,
+                          color: Color.fromARGB(255, 239, 80, 80),
+                        ),
                         Text(
                           "Reserve a Table",
                           style: TextStyle(
@@ -283,7 +275,7 @@ class _RestaurantDetailsState extends State<RestaurantDetails> {
             borderRadius: BorderRadius.circular(30.0),
             child: Card(
               margin: EdgeInsets.all(10.0),
-              elevation: 10.0,
+              elevation: 3.0,
               child: Column(children: [
                 Padding(
                   padding: const EdgeInsets.all(5.0),
@@ -291,7 +283,8 @@ class _RestaurantDetailsState extends State<RestaurantDetails> {
                     children: [
                       Text(
                         "Stories",
-                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
                       )
                     ],
                   ),
@@ -316,12 +309,8 @@ class _RestaurantDetailsState extends State<RestaurantDetails> {
                     children: [
                       Text(
                         "ADD STORY",
-                        
                         textAlign: TextAlign.left,
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.red[400]
-                        ),
+                        style: TextStyle(fontSize: 14, color: Colors.red[400]),
                       ),
                     ],
                   ),
@@ -329,7 +318,6 @@ class _RestaurantDetailsState extends State<RestaurantDetails> {
               ]),
             ),
           ),
-      
           ClipRRect(
             borderRadius: BorderRadius.circular(30.0),
             child: Card(
@@ -347,27 +335,24 @@ class _RestaurantDetailsState extends State<RestaurantDetails> {
                             fontWeight: FontWeight.w600,
                             color: Color.fromARGB(255, 20, 20, 20)),
                       ),
-                      
-                              
                     ],
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(5.0),
-                  child: Text(widget.restaurant.desc ?? '',
-                  style: TextStyle(
-                    fontSize: 11
-                  ),
+                  child: Text(
+                    widget.restaurant.desc ?? '',
+                    style: TextStyle(fontSize: 11),
                   ),
                 ),
-
                 Padding(
                   padding: const EdgeInsets.all(5.0),
                   child: Row(
                     children: [
                       Text(
                         "Cuisines",
-                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
                       )
                     ],
                   ),
@@ -378,24 +363,28 @@ class _RestaurantDetailsState extends State<RestaurantDetails> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Text(
-                        widget.restaurant.cuisine?.replaceAll('[', '') ?.replaceAll(']','') ?? '',
+                        widget.restaurant.cuisine
+                                ?.replaceAll('[', '')
+                                ?.replaceAll(']', '') ??
+                            '',
                         textAlign: TextAlign.left,
                         style: TextStyle(fontSize: 10),
                       ),
                     ],
                   ),
                 ),
-              Padding(padding: 
-              const EdgeInsets.all(5.0),
-              child: Row(
-                children: [
-                  Text(
-                    "Average Cost",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  )
-                ],
-              ),  
-              ),
+                Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: Row(
+                    children: [
+                      Text(
+                        "Average Cost",
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
+                      )
+                    ],
+                  ),
+                ),
                 Padding(
                   padding: const EdgeInsets.all(5.0),
                   child: Row(
@@ -420,56 +409,49 @@ class _RestaurantDetailsState extends State<RestaurantDetails> {
                             fontWeight: FontWeight.w600,
                             color: Color.fromARGB(255, 20, 20, 20)),
                       ),
-                      
-                              
                     ],
                   ),
                 ),
-          Padding(
-  padding: const EdgeInsets.all(5.0),
-  child: GridView.builder(
-    shrinkWrap: true,
-    physics: NeverScrollableScrollPhysics(),
-    itemCount: widget.restaurant.features != null ? widget.restaurant.features!.split(',').length : 0,
-    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-      crossAxisCount: 2,
-      childAspectRatio: 4,
-      crossAxisSpacing: 1.0,
-      mainAxisSpacing: 1.0,
-    ),
-    itemBuilder: (context, index) {
-      if (widget.restaurant.features == null) return SizedBox.shrink();
+                Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: GridView.builder(
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: widget.restaurant.features != null
+                        ? widget.restaurant.features!.split(',').length
+                        : 0,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      childAspectRatio: 4,
+                      crossAxisSpacing: 1.0,
+                      mainAxisSpacing: 1.0,
+                    ),
+                    itemBuilder: (context, index) {
+                      if (widget.restaurant.features == null)
+                        return SizedBox.shrink();
 
-      final features = widget.restaurant.features!.replaceAll('[', '').replaceAll(']', '').split(',');
-      if (index >= features.length) return SizedBox.shrink();
+                      final features = widget.restaurant.features!
+                          .replaceAll('[', '')
+                          .replaceAll(']', '')
+                          .split(',');
+                      if (index >= features.length) return SizedBox.shrink();
 
-      final feature = features[index].trim();
-      return Row(
-        children: [
-          Icon(Icons.check, color: Colors.green),
-          SizedBox(width: 2.0),
-          Expanded(
-            child: Text(
-              feature,
-              style: TextStyle(fontSize: 11),
-            ),
-          ),
-        ],
-      );
-    },
-  ),
-)
-
-
-
-
-
-
-                
-                
-
-                
-
+                      final feature = features[index].trim();
+                      return Row(
+                        children: [
+                          Icon(Icons.check, color: Colors.green),
+                          SizedBox(width: 2.0),
+                          Expanded(
+                            child: Text(
+                              feature,
+                              style: TextStyle(fontSize: 11),
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                  ),
+                )
               ]),
             ),
           ),

@@ -1,4 +1,5 @@
 import 'package:dineout/pages/home_page.dart';
+import 'package:dineout/pages/login_page.dart';
 import 'package:dineout/pages/update_profile.dart';
 import 'package:dineout/provider/user_provider.dart';
 import 'package:provider/provider.dart';
@@ -7,7 +8,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dineout/services/auth.dart';
 
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({super.key});
+const ProfilePage({Key? key}) : super(key: key);
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();
@@ -38,8 +39,9 @@ class _ProfilePageState extends State<ProfilePage> {
   late Future<QuerySnapshot<Map<String, dynamic>>> _fetchDataFuture;
   bool _dataFetched = false;
 
-  Future<DocumentSnapshot<Map<String, dynamic>>?> fetchData(
-      String email) async {
+Future<DocumentSnapshot<Map<String, dynamic>>?> fetchData(
+    String? email) async {
+  if (email != null) {
     final snapshot = await FirebaseFirestore.instance
         .collection('users')
         .where('email', isEqualTo: email)
@@ -47,16 +49,18 @@ class _ProfilePageState extends State<ProfilePage> {
 
     if (snapshot.docs.isNotEmpty) {
       return snapshot.docs[0];
-    } else {
-      return null;
     }
   }
+
+  return null;
+}
+  
 
   @override
   Widget build(BuildContext context) {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     final email = userProvider.email;
-
+    print("59");
     print(userProvider.email);
 
     return Scaffold(
@@ -116,6 +120,23 @@ class _ProfilePageState extends State<ProfilePage> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
+                  if (userProvider.email == 'Guest')
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        elevation: 0.0,
+                        primary: Color.fromARGB(255, 255, 79, 79),
+                        onPrimary: Colors.white,
+                      ),
+                      child: Text('Login'),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => LoginPage(),
+                          ),
+                        );
+                      },
+                    ),
                   Padding(
                     padding: const EdgeInsets.only(top: 40.0),
                     child: Container(
@@ -136,18 +157,15 @@ class _ProfilePageState extends State<ProfilePage> {
                   SingleChildScrollView(
                     child:
                         FutureBuilder<DocumentSnapshot<Map<String, dynamic>>?>(
-                            future: fetchData(email as String),
+                            future: fetchData(email as String? ?? ''),
                             builder: (context, snapshot) {
                               if (snapshot.connectionState ==
                                   ConnectionState.waiting) {
                                 return CircularProgressIndicator();
                               } else if (snapshot.hasError) {
-                                return Text('Error: ${snapshot.error}');
+                                return Text(snapshot.error.toString());
                               } else {
                                 if (snapshot.data != null) {
-                                  // final phoneNumber =
-                                  //     snapshot.data!.docs[0].get('phoneNumber');
-                                  // final data = snapshot.data!.docs[0].data();
                                   final data = snapshot.data!.data();
                                   final name = data!['name'];
                                   final aboutMe = data['aboutMe'];
@@ -182,7 +200,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                         padding: const EdgeInsets.all(8.0),
                                         child: field(
                                           labelText: 'About Me',
-                                           value: aboutMe,
+                                          value: aboutMe,
                                         ),
                                       ),
                                       Padding(
@@ -194,59 +212,81 @@ class _ProfilePageState extends State<ProfilePage> {
                                       ),
                                     ],
                                   );
-                                }
-                              }
+                                } 
+                                // else if (userProvider.email == 'Guest') {
 
-                              return Text('No data found');
+                                  return ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      elevation: 0.0,
+                                      primary: Color.fromARGB(255, 255, 79, 79),
+                                      onPrimary: Colors.white,
+                                    ),
+                                    child: Text('Login'),
+                                    onPressed: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => LoginPage(),
+                                        ),
+                                      );
+                                    },
+                                  );
+                                }
+                              // }
+
+                              // return Text('No data found');
                             }),
                   ),
                   Padding(
-  padding: const EdgeInsets.all(13.0),
-  child: Container(
-    height: 55,
-    width: double.infinity,
-    child: FutureBuilder<DocumentSnapshot<Map<String, dynamic>>?>(
-      future: fetchData(email as String),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return CircularProgressIndicator();
-        } else if (snapshot.hasError) {
-          return Text('Error: ${snapshot.error}');
-        } else {
-          if (snapshot.data != null) {
-            final data = snapshot.data!.data();
-            final userData = data!;
-            
-            return ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.white,
-              ),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => UpdateProfilePage(userData: userData),
-                  ),
-                );
-              },
-              child: Center(
-                child: Text(
-                  "Update Profile",
-                  style: TextStyle(
-                    fontSize: 23,
-                    color: Color.fromARGB(255, 236, 81, 81),
-                  ),
-                ),
-              ),
-            );
-          }
-        }
+                    padding: const EdgeInsets.all(13.0),
+                    child: Container(
+                      height: 55,
+                      width: double.infinity,
+                      child: FutureBuilder<
+                          DocumentSnapshot<Map<String, dynamic>>?>(
+                        future: fetchData(email as String? ?? ''),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return CircularProgressIndicator();
+                          } else if (snapshot.hasError) {
+                            return Text('Error: ${snapshot.error}');
+                          } else {
+                            if (snapshot.data != null) {
+                              final data = snapshot.data!.data();
+                              final userData = data!;
 
-        return Text('No data found');
-      },
-    ),
-  ),
-),
+                              return ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.white,
+                                ),
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          UpdateProfilePage(userData: userData),
+                                    ),
+                                  );
+                                },
+                                child: Center(
+                                  child: Text(
+                                    "Update Profile",
+                                    style: TextStyle(
+                                      fontSize: 23,
+                                      color: Color.fromARGB(255, 236, 81, 81),
+                                    ),
+                                  ),
+                                ),
+                              );
+                            }
+                          }
+
+                          return Center(child: Text('No data found'));
+                        },
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),

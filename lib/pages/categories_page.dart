@@ -48,7 +48,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
         contact: data['contact']?.toString() ?? '',
         features: data['features']?.toString() ?? '',
         dineoutPay: data['dineoutPay']?.toString() ?? '',
-
+        discount: data['discount'] ?? '',
         id: doc.id,
       );
     }).toList();

@@ -14,6 +14,7 @@ class Restaurant {
   final String? contact;
   final String? features;
   final String? dineoutPay;
+  final int?  discount;
   
 
   Restaurant({
@@ -30,6 +31,7 @@ class Restaurant {
     this.contact,
     this.features,
     this.dineoutPay,
+    this.discount,
 
   });
 }

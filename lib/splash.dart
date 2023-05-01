@@ -1,3 +1,4 @@
+import 'package:dineout/pages/home_page.dart';
 import 'package:dineout/pages/login_page.dart';
 import 'package:flutter/material.dart';
 
@@ -35,7 +36,7 @@ class _SplashState extends State<Splash>
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => const LoginPage(),
+              builder: (context) => const HomePage(),
             ),
           );
         });
