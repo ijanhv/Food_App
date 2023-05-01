@@ -95,8 +95,10 @@ class _ProfilePageState extends State<ProfilePage> {
                       context,
                       MaterialPageRoute(builder: (context) => HomePage()),
                     );
-                    Provider.of<UserProvider>(context, listen: false).setUserFullName("Guest");
-                    Provider.of<UserProvider>(context, listen: false).setUserEmail("");
+                    Provider.of<UserProvider>(context, listen: false)
+                        .setUserFullName("Guest");
+                    Provider.of<UserProvider>(context, listen: false)
+                        .setUserEmail("");
                   },
                 ),
               ],
@@ -180,7 +182,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                         padding: const EdgeInsets.all(8.0),
                                         child: field(
                                           labelText: 'About Me',
-                                          value: aboutMe,
+                                           value: aboutMe,
                                         ),
                                       ),
                                       Padding(
@@ -199,31 +201,52 @@ class _ProfilePageState extends State<ProfilePage> {
                             }),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(13.0),
-                    child: Container(
-                      height: 55,
-                      width: double.infinity,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.white),
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => UpdateProfilePage()));
-                        },
-                        child: Center(
-                          child: Text(
-                            "Update Profile",
-                            style: TextStyle(
-                              fontSize: 23,
-                              color: Color.fromARGB(255, 236, 81, 81),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
+  padding: const EdgeInsets.all(13.0),
+  child: Container(
+    height: 55,
+    width: double.infinity,
+    child: FutureBuilder<DocumentSnapshot<Map<String, dynamic>>?>(
+      future: fetchData(email as String),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return CircularProgressIndicator();
+        } else if (snapshot.hasError) {
+          return Text('Error: ${snapshot.error}');
+        } else {
+          if (snapshot.data != null) {
+            final data = snapshot.data!.data();
+            final userData = data!;
+            
+            return ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.white,
+              ),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => UpdateProfilePage(userData: userData),
                   ),
+                );
+              },
+              child: Center(
+                child: Text(
+                  "Update Profile",
+                  style: TextStyle(
+                    fontSize: 23,
+                    color: Color.fromARGB(255, 236, 81, 81),
+                  ),
+                ),
+              ),
+            );
+          }
+        }
+
+        return Text('No data found');
+      },
+    ),
+  ),
+),
                 ],
               ),
             ),

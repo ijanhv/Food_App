@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dineout/pages/categories_page.dart';
 import 'package:dineout/widgets/drawer.dart';
+import 'package:dineout/widgets/grid.dart';
 import 'package:flutter/material.dart';
 import 'package:dineout/provider/user_provider.dart';
 import 'package:provider/provider.dart';
@@ -52,12 +53,50 @@ class _HomePageState extends State<HomePage>
     "https://cdn.zoutons.com/images/originals/blog/Zomato_coupon_hack_1645609954.png",
   ];
 
-  List<String> offerImageList = [
-  "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/7/h/t/p73265-15776215715e089843df11f.jpg?tr=tr:n-medium",
-  "https://assets.architecturaldigest.in/photos/6008216856e01e341bc35381/master/pass/Pa-Pa-Ya-BKC-Mumbai1-1366x768.jpg",
-  "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/9/h/q/p96974-1633587070615e8f7eb5782.jpg?w=400",
-  "https://im.whatshot.in/img/2020/Sep/11985-d-1601060953.jpg",
-];
+  List<Map<String, dynamic>> offerImageList = [
+    {
+      'imageUrl':
+          "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/7/h/t/p73265-15776215715e089843df11f.jpg?tr=tr:n-medium",
+      'imageTitle': "Episode One"
+    },
+    {
+      'imageUrl':
+          "https://assets.architecturaldigest.in/photos/6008216856e01e341bc35381/master/pass/Pa-Pa-Ya-BKC-Mumbai1-1366x768.jpg",
+      'imageTitle': "Pa Pa Ya"
+    },
+    {
+      'imageUrl':
+          "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/9/h/q/p96974-1633587070615e8f7eb5782.jpg?w=400",
+      'imageTitle': "Blah"
+    },
+    {
+      'imageUrl':
+          "https://www.socialoffline.in/ChemburSocial/img/chembur-social-06.jpg",
+      'imageTitle': "Chembur Social"
+    }
+  ];
+
+  List<Map<String, String>> imageUrls = [
+    {
+      'image':
+          'https://www.tastingtable.com/img/gallery/20-italian-dishes-you-need-to-try-at-least-once/l-intro-1643403830.jpg',
+      'title': 'Italian',
+    },
+    {
+      'image':
+          'https://www.daysoftheyear.com/wp-content/uploads/national-fast-food-day.jpg',
+      'title': 'Fast Food',
+    },
+    {
+      'image': 'https://m.recipes.timesofindia.com/photo/96590900/96590900.jpg',
+      'title': 'Indian',
+    },
+    {
+      'image':
+          'https://d1ralsognjng37.cloudfront.net/81b42081-1378-4f4a-8470-454c82df565a.jpeg',
+      'title': 'Chinese',
+    }
+  ];
 
   void _onItemTapped(int index) {
     setState(() {
@@ -279,14 +318,12 @@ class _HomePageState extends State<HomePage>
                             color: Colors.black,
                             fontWeight: FontWeight.bold),
                       ),
-                      // GoogleFonts.lato(fontStyle: FontStyle.italic),
-                      //  navigate to categories page through text
                       GestureDetector(
                         onTap: () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => CategoriesPage()),
+                                builder: (context) => CategoriesPage(title: 'All-in-One')),
                           );
                         },
                         child: Text(
@@ -301,61 +338,52 @@ class _HomePageState extends State<HomePage>
               ),
             ),
 
-CarouselSlider(
-  items: offerImageList.map((imageUrl) {
-    return InkWell(
-      onTap: () {
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(
-        //     builder: (context) => RestaurantDetails(),
-        //   ),
-        // );
-      },
-      child: Card(
-        child: Container(
-          margin: const EdgeInsets.all(6.0),
-          child: Column(
-            children: [
-              Expanded(
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8.0),
-                    image: DecorationImage(
-                      image: NetworkImage(imageUrl),
-                      fit: BoxFit.cover,
+            CarouselSlider(
+              items: offerImageList.map((imageUrl) {
+                return InkWell(
+                  onTap: () {},
+                  child: Card(
+                    child: Container(
+                      margin: const EdgeInsets.all(6.0),
+                      child: Column(
+                        children: [
+                          Expanded(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8.0),
+                                image: DecorationImage(
+                                  image: NetworkImage(imageUrl['imageUrl']),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(2.0),
+                            child: Text(
+                              imageUrl['imageTitle'],
+                              style: TextStyle(
+                                fontSize: 16.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
+                );
+              }).toList(),
+              options: CarouselOptions(
+                height: 180.0,
+                enlargeCenterPage: true,
+                // autoPlay: true,
+                aspectRatio: 1 / 1,
+                autoPlayCurve: Curves.fastOutSlowIn,
+                enableInfiniteScroll: true,
+                viewportFraction: 1.5 / 2,
               ),
-              Padding(
-                padding: const EdgeInsets.all(2.0),
-                child: Text(
-                  "Image Title",
-                  style: TextStyle(
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }).toList(),
-  options: CarouselOptions(
-    height: 180.0,
-    enlargeCenterPage: true,
-    // autoPlay: true,
-    aspectRatio: 1 / 1,
-    autoPlayCurve: Curves.fastOutSlowIn,
-    enableInfiniteScroll: true,
-    viewportFraction: 1.5/2,
-  ),
-),
-
-
+            ),
 
             Container(
               height: 40,
@@ -454,6 +482,24 @@ CarouselSlider(
                 autoPlayCurve: Curves.fastOutSlowIn,
                 viewportFraction: 1 / 3,
               ),
+            ),
+
+            const SizedBox(height: 20),
+
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text("Curated Collections",
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                          fontSize: 12,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold)),
+                ),
+                PhotoGrid()
+              ],
             ),
           ],
         ),

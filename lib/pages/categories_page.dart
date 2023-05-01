@@ -6,7 +6,11 @@ import 'package:dineout/models/restaurant.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class CategoriesPage extends StatefulWidget {
-  const CategoriesPage({super.key});
+
+  final String? title;
+  const CategoriesPage({super.key, required this.title});
+
+
 
   @override
   State<CategoriesPage> createState() => _CategoriesPageState();
@@ -126,7 +130,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
                     padding: const EdgeInsets.only(top: 30.0),
                     child: Column(
                       children: [
-                        const Text("All-in-one",
+                         Text(widget.title as String,
                             style: TextStyle(
                                 color: Color.fromARGB(255, 255, 255, 255),
                                 fontSize: 40,
@@ -159,6 +163,16 @@ class _CategoriesPageState extends State<CategoriesPage> {
                     );
                   } else {
                     final restaurants = snapshot.data;
+                    // where restaurant cuisine matches with title
+                    restaurants?.retainWhere((restaurant) =>
+                        widget.title?.toLowerCase() == 'all-in-one' ||
+                        (restaurant.cuisine?.toLowerCase() ?? '').contains(widget.title?.toLowerCase() ?? ''));
+
+
+
+                 
+
+
                     //  get the id of document please give code
 
                     print('snapshot ');
@@ -173,6 +187,8 @@ class _CategoriesPageState extends State<CategoriesPage> {
                         shrinkWrap: true,
                         children: restaurants
                                 ?.map((restaurant) => GestureDetector(
+                                  // where restaurant cuisine matches with title
+
                                   onTap: () => _onCardTapped(restaurant),
                                   child: ClipRRect(
                                         borderRadius: BorderRadius.circular(10.0),
