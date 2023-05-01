@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dineout/pages/categories_page.dart';
+import 'package:dineout/pages/discount_page.dart';
 import 'package:dineout/pages/search.dart';
 import 'package:dineout/widgets/bottomNavigation.dart';
 import 'package:dineout/widgets/drawer.dart';
@@ -25,19 +26,19 @@ class _HomePageState extends State<HomePage>
 
   List<Map<String, dynamic>> carouselData = [
     {
-      'discount': '30%',
+      'discount': '30',
       'color': Colors.green,
     },
     {
-      'discount': '20%',
+      'discount': '20',
       'color': Colors.purple,
     },
     {
-      'discount': '15%',
+      'discount': '15',
       'color': Colors.blue,
     },
     {
-      'discount': '5%',
+      'discount': '5',
       'color': Colors.red,
     },
   ];
@@ -411,12 +412,14 @@ class _HomePageState extends State<HomePage>
               items: carouselData.map((item) {
                 return InkWell(
                   onTap: () {
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //     builder: (context) => RestaurantDetails(),
-                    //   ),
-                    // );
+                    print('offer ${item['discount']}');
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => DiscountPage(discount: num.parse(item['discount']),),
+                        // builder: (context) => CategoriesPage(discount: num.parse(item['discount']))
+                      ),
+                    );
                   },
                   child: Card(
                     child: Container(
@@ -454,7 +457,7 @@ class _HomePageState extends State<HomePage>
                                     height:
                                         5.0), // Add some space between the text and the bottom border
                                 Text(
-                                  item['discount'],
+                                  item['discount'] + '%',
                                   style: TextStyle(
                                     fontSize: 18.0,
                                     fontWeight: FontWeight.bold,

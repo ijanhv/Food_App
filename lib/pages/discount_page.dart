@@ -6,23 +6,16 @@ import 'package:flutter/material.dart';
 import 'package:dineout/models/restaurant.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class CategoriesPage extends StatefulWidget {
-  final String? title;
-  const CategoriesPage({super.key, this.title});
+class DiscountPage extends StatefulWidget {
+  final num? discount;
+  const DiscountPage({super.key, required this.discount});
 
   @override
-  State<CategoriesPage> createState() => _CategoriesPageState();
+  State<DiscountPage> createState() => _DiscountPageState();
 }
 
-class _CategoriesPageState extends State<CategoriesPage> {
-  int _selectedIndex = 1;
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text('Index 0: Home'),
-    Text('Index 1: Search'),
-    Text('Index 2: Events'),
-    Text('Index 3: Blog')
-  ];
-
+class _DiscountPageState extends State<DiscountPage> {
+  
   List<Restaurant> _restaurants = [];
 
   Future<List<Restaurant>> _fetchRestaurants() async {
@@ -73,12 +66,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
     );
   }
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
+  
   ScrollController _scrollController = ScrollController();
 
   @override
@@ -89,6 +77,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
 
   @override
   Widget build(BuildContext context) {
+    print(widget.discount);
     // print(_restaurants);
     return Scaffold(
         appBar: AppBar(
@@ -111,26 +100,17 @@ class _CategoriesPageState extends State<CategoriesPage> {
             children: [
               Stack(
                 children: [
-                  Container(
-                    height: 250,
-                    decoration: BoxDecoration(
-                      image: const DecorationImage(
-                        image: NetworkImage(
-                            "https://i.pinimg.com/originals/ea/68/bf/ea68bf1f0e3dea295897865063cee69d.jpg"),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
+                  
                   Center(
                     child: Padding(
                       padding: const EdgeInsets.only(top: 30.0),
                       child: Column(
                         children: [
-                          Text(widget.title as String,
+                          Text('${widget.discount} % Off ' as String,
                               style: TextStyle(
-                                  color: Color.fromARGB(255, 255, 255, 255),
+                                  color: Color.fromARGB(255, 0, 0, 0),
                                   fontSize: 40,
-                                  fontWeight: FontWeight.w500)),
+                                  fontWeight: FontWeight.bold)),
                           Text("23 Restaurants",
                               style: TextStyle(
                                 color: const Color.fromARGB(255, 255, 255, 255),
@@ -158,14 +138,10 @@ class _CategoriesPageState extends State<CategoriesPage> {
                         );
                       } else {
                         final restaurants = snapshot.data;
+                        print("discount: ${widget.discount}");
                         // where restaurant cuisine matches with title
-                        if (widget.title != null) {
-                          restaurants?.retainWhere((restaurant) =>
-                              widget.title?.toLowerCase() == 'all-in-one' ||
-                              (restaurant.cuisine?.toLowerCase() ?? '')
-                                  .contains(widget.title?.toLowerCase() ?? ''));
-                        } 
-                        
+                        restaurants?.retainWhere((restaurant) =>
+                            restaurant.discount == widget.discount);
                         //  get the id of document please give code
 
                         print('snapshot ');
