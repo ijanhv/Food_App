@@ -1,11 +1,11 @@
-import 'package:dineout/pages/home_page.dart';
-import 'package:dineout/pages/login_page.dart';
-import 'package:dineout/pages/update_profile.dart';
-import 'package:dineout/provider/user_provider.dart';
+import 'package:food_app/pages/home_page.dart';
+import 'package:food_app/pages/login_page.dart';
+import 'package:food_app/pages/update_profile.dart';
+import 'package:food_app/provider/user_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dineout/services/auth.dart';
+import 'package:food_app/services/auth.dart';
 
 class ProfilePage extends StatefulWidget {
 const ProfilePage({Key? key}) : super(key: key);
@@ -112,10 +112,7 @@ Future<DocumentSnapshot<Map<String, dynamic>>?> fetchData(
       ),
       body: Stack(
         children: [
-          CustomPaint(
-            size: Size(MediaQuery.of(context).size.width, 200),
-            painter: HeaderCurvedContainer(),
-          ),
+        
           Center(
             child: SingleChildScrollView(
               child: Column(
@@ -137,23 +134,7 @@ Future<DocumentSnapshot<Map<String, dynamic>>?> fetchData(
                         );
                       },
                     ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 40.0),
-                    child: Container(
-                      padding: EdgeInsets.all(10.0),
-                      width: MediaQuery.of(context).size.width / 2,
-                      height: MediaQuery.of(context).size.width / 2,
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.white, width: 3),
-                        shape: BoxShape.circle,
-                        color: Colors.white,
-                        image: DecorationImage(
-                          fit: BoxFit.cover,
-                          image: AssetImage('profile.jpg'),
-                        ),
-                      ),
-                    ),
-                  ),
+               
                   SingleChildScrollView(
                     child:
                         FutureBuilder<DocumentSnapshot<Map<String, dynamic>>?>(
@@ -168,8 +149,7 @@ Future<DocumentSnapshot<Map<String, dynamic>>?> fetchData(
                                 if (snapshot.data != null) {
                                   final data = snapshot.data!.data();
                                   final name = data!['name'];
-                                  final aboutMe = data['aboutMe'];
-                                  final birthDay = data['birthDay'];
+                                  final address = data['adress'];
                                   final email = data['email'];
                                   final phoneNumber = data['phoneNumber'];
 
@@ -196,20 +176,14 @@ Future<DocumentSnapshot<Map<String, dynamic>>?> fetchData(
                                           value: phoneNumber,
                                         ),
                                       ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: field(
-                                          labelText: 'About Me',
-                                          value: aboutMe,
-                                        ),
+                                      Padding(padding: 
+                                      const EdgeInsets.all(8.0),
+                                      child: field(
+                                        labelText: 'Address',
+                                        value: address,
                                       ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: field(
-                                          labelText: 'BirthDay',
-                                          value: birthDay,
-                                        ),
                                       ),
+                                      
                                     ],
                                   );
                                 } 
@@ -258,7 +232,8 @@ Future<DocumentSnapshot<Map<String, dynamic>>?> fetchData(
 
                               return ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.white,
+                                  elevation: 0.0,
+                                  backgroundColor:  Color.fromARGB(255, 255, 84, 22),
                                 ),
                                 onPressed: () {
                                   Navigator.push(
@@ -274,10 +249,10 @@ Future<DocumentSnapshot<Map<String, dynamic>>?> fetchData(
                                     "Update Profile",
                                     style: TextStyle(
                                       fontSize: 23,
-                                      color: Color.fromARGB(255, 236, 81, 81),
+                                      color: Colors.white),
                                     ),
                                   ),
-                                ),
+                                
                               );
                             }
                           }

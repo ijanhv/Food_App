@@ -1,54 +1,71 @@
-import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 
-const restaurants = [
-   {
-  "name": "Yauatcha Mumbai",
-  "desc": "Yauatcha is a Michelin-starred Chinese dim sum tea house offering a unique dining experience. It serves a wide range of dim sum delicacies, along with a variety of teas and signature cocktails.",
-  "cuisine": ["Chinese", "Dim Sum"],
-  "cost": "Rs 2500 for 2",
-  "type": ["Fine Dining"],
-  "address": "Raheja Tower, Bandra Kurla Complex, Bandra East, Mumbai",
-  "features": ["Wifi", "Private Dining Area", "Full Bar Available", "Valet Parking"],
-  "rating": "4.7",
-  "contact": "022 2644 8888",
-  "dineoutPay": "Yes",
-  "image": "https://www.yauatcha.com/media/kvsliders/3n1cn/yauatcha-india"
-},
-{
-  "name": "Masala Library by Jiggs Kalra",
-  "desc": "Masala Library is a fine dining restaurant known for its innovative and modern take on Indian cuisine. It offers a culinary journey through various regions of India, presenting dishes with unique flavors and artistic presentation.",
-  "cuisine": ["Indian", "Progressive"],
-  "cost": "Rs 3000 for 2",
-  "type": ["Fine Dining"],
-  "address": "Ground Floor, First International Financial Centre, Bandra Kurla Complex, Bandra East, Mumbai",
-  "features": ["Wifi", "Full Bar Available", "Private Dining Area", "Valet Parking"],
-  "rating": "4.8",
-  "contact": "022 6642 4142",
-  "dineoutPay": "Yes",
-  "image": "https://www.masalalibrary.com/images/ML_hero5.jpg"
-},
-{
-  "name": "Bastian",
-  "desc": "Bastian is a trendy seafood restaurant known for its fresh and flavorful seafood dishes. It offers a variety of seafood options, including lobsters, crabs, prawns, and fish, prepared with creative twists and delicious sauces.",
-  "cuisine": ["Seafood"],
-  "cost": "Rs 2500 for 2",
-  "type": ["Casual Dining"],
-  "address": "B/2, New Kamal Building, Opposite National College, Linking Road, Bandra West, Mumbai",
-  "features": ["Wifi", "Full Bar Available", "Valet Parking", "Outdoor Seating"],
-  "rating": "4.7",
-  "contact": "022 2642 0145",
-  "dineoutPay": "Yes",
-  "image": "https://www.bastian.in/images/hero.jpg"
+const food_items = [
+  {
+"name": "Cheeseburger",
+"description": "Juicy beef patty topped with melted cheese, lettuce, tomato, onion, and pickles on a sesame seed bun.",
+"price": 9.99
 },
 
+{
+"name": "Margherita Pizza",
+"description": "Thin crust pizza topped with fresh tomato sauce, mozzarella cheese, and basil.",
+"price": 12.99
+},
+
+{
+"name": "Chicken Caesar Salad",
+"description": "Crisp romaine lettuce topped with grilled chicken, croutons, parmesan cheese, and Caesar dressing.",
+"price": 8.99
+},
+
+{
+"name": "Fish and Chips",
+"description": "Crispy battered cod served with thick-cut fries and tartar sauce.",
+"price": 14.99
+},
+
+{
+"name": "Pad Thai",
+"description": "Stir-fried rice noodles with shrimp, tofu, bean sprouts, and peanuts in a sweet and tangy sauce.",
+"price": 10.99
+},
+
+{
+"name": "BBQ Ribs",
+"description": "Tender and smoky pork ribs slathered in barbecue sauce.",
+"price": 16.99
+},
+
+{
+"name": "Vegetable Stir Fry",
+"description": "Assorted vegetables sautéed with garlic and ginger in a soy sauce and sesame oil dressing.",
+"price": 9.99
+},
+
+{
+"name": "Spaghetti Bolognese",
+"description": "Spaghetti noodles tossed with a meaty tomato sauce and topped with grated parmesan cheese.",
+"price": 11.99
+},
+
+{
+"name": "Beef Tacos",
+"description": "Soft corn tortillas filled with seasoned ground beef, lettuce, tomato, and shredded cheese.",
+"price": 7.99
+},
+
+{
+"name": "Sushi Roll",
+"description": "Rice, seaweed, and various fillings rolled into bite-sized pieces and served with soy sauce and wasabi.",
+"price": 14.99
+},
 ];
 
 void uploadJsonData() async {
-   CollectionReference collection = FirebaseFirestore.instance.collection('restaurants');
-    restaurants.forEach((restaurantData) {
-    collection.add(restaurantData);
+   CollectionReference collection = FirebaseFirestore.instance.collection('food_items');
+    food_items.forEach((foodData) {
+    collection.add(foodData);
   });
 }
 

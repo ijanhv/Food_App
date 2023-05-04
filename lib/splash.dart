@@ -1,5 +1,5 @@
-import 'package:dineout/pages/home_page.dart';
-import 'package:dineout/pages/login_page.dart';
+import 'package:food_app/pages/home_page.dart';
+import 'package:food_app/pages/login_page.dart';
 import 'package:flutter/material.dart';
 
 class Splash extends StatefulWidget {
@@ -86,7 +86,7 @@ class _SplashState extends State<Splash>
                     child: Transform.translate(
                       offset: Offset(0, 20 * (1 - _animation!.value)),
                       child: const Text(
-                        "dineout",
+                        "food_app",
                         style: TextStyle(
                           fontSize: 40,
                           fontWeight: FontWeight.bold,

@@ -4,7 +4,7 @@ class UserProvider with ChangeNotifier {
   String? fullName;
   String? email;
   String? id;
-  // Add other user properties as needed
+  String? address;
 
   void setUserFullName(String name) {
     fullName = name;
@@ -18,6 +18,11 @@ class UserProvider with ChangeNotifier {
 
   void setUserId(String userId) {
     id = userId;
+    notifyListeners();
+  }
+
+  void setUserAddress(String address) {
+    address = address;
     notifyListeners();
   }
 }

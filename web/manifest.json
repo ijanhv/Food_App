@@ -1,6 +1,6 @@
 {
-    "name": "dineout",
-    "short_name": "dineout",
+    "name": "food_app",
+    "short_name": "food_app",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

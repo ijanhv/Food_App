@@ -1,4 +1,3 @@
-import 'package:dineout/pages/categories_page.dart';
 import 'package:flutter/material.dart';
 
 class PhotoGrid extends StatefulWidget {
@@ -12,22 +11,22 @@ class _PhotoGridState extends State<PhotoGrid> {
   List<Map<String, String>> imageUrls = [
     {
       'image':
-          'https://www.tastingtable.com/img/gallery/20-italian-dishes-you-need-to-try-at-least-once/l-intro-1643403830.jpg',
-      'title': 'Italian',
+          'https://www.eatthis.com/wp-content/uploads/sites/4/2021/09/grilled-chicken.jpg?quality=82&strip=1',
+      'title': 'Grilled Chicken',
     },
     {
       'image':
-          'https://www.daysoftheyear.com/wp-content/uploads/national-fast-food-day.jpg',
-      'title': 'Fast Food',
+          'https://static.toiimg.com/thumb/55369113.cms?width=1200&height=900',
+      'title': 'Lasagna',
     },
     {
-      'image': 'https://sukhis.com/app/uploads/2022/05/image2-3.jpg',
-      'title': 'Indian',
+      'image': 'https://www.indianhealthyrecipes.com/wp-content/uploads/2022/03/instant-pot-dal-rice-recipe.jpg',
+      'title': 'Dal Rice',
     },
     {
       'image':
-          'https://d1ralsognjng37.cloudfront.net/81b42081-1378-4f4a-8470-454c82df565a.jpeg',
-      'title': 'Chinese',
+          'https://www.thespruceeats.com/thmb/UnVh_-znw7ikMUciZIx5sNqBtTU=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/steamed-momos-wontons-1957616-hero-01-1c59e22bad0347daa8f0dfe12894bc3c.jpg',
+      'title': 'Momos',
     }
   ];
 
@@ -35,7 +34,7 @@ class _PhotoGridState extends State<PhotoGrid> {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.all(10.0),
-      height: 300, // Set a fixed height for the container
+      height: 800, // Set a fixed height for the container
       child: ClipRRect(
         borderRadius: BorderRadius.circular(10.0),
         child: GridView.builder(
@@ -57,14 +56,14 @@ class _PhotoGridState extends State<PhotoGrid> {
                     child: GestureDetector(
                       onTap: () {
                         print('Tapped on $title');
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => CategoriesPage(
-                              title: title,
-                            ),
-                          ),
-                        );
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //     builder: (context) => CategoriesPage(
+                        //       title: title,
+                        //     ),
+                        //   ),
+                        // );
                       },
                       child: Image.network(
                         imageUrl!,

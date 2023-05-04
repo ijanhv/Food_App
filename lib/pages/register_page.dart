@@ -1,5 +1,5 @@
-import 'package:dineout/pages/home_page.dart';
-import 'package:dineout/pages/login_page.dart';
+import 'package:food_app/pages/home_page.dart';
+import 'package:food_app/pages/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -122,70 +122,118 @@ void _submit(email, password, fullName) async {
             SizedBox(
               height: MediaQuery.of(context).size.width * 0.1,
             ),
-            TextFormField(
-              decoration: InputDecoration(labelText: 'E-Mail'),
-              keyboardType: TextInputType.emailAddress,
-              controller: _emailTextEditController,
-              autofocus: true,
-              textInputAction: TextInputAction.next,
-              focusNode: _emailFocus,
-              validator: (value) {
-                if (value?.isEmpty == true ||
-                    !RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                        .hasMatch(value!)) {
-                  return 'Enter a valid email!';
-                }
-                return null;
-              },
-              onFieldSubmitted: (_) {
-                FocusScope.of(context).requestFocus(_fullNameFocus);
-              },
-            ),
-            SizedBox(
-              height: MediaQuery.of(context).size.width * 0.1,
-            ),
-            TextFormField(
-              decoration: InputDecoration(labelText: 'Name'),
-              keyboardType: TextInputType.name,
-              controller: _fullNameTextEditController,
-              autofocus: false,
-              textInputAction: TextInputAction.next,
-              focusNode: _fullNameFocus,
-              onFieldSubmitted: (_) {
-                FocusScope.of(context).requestFocus(_passwordFocus);
-              },
-            ),
-            SizedBox(
-              height: MediaQuery.of(context).size.width * 0.1,
-            ),
-            TextFormField(
-              decoration: InputDecoration(labelText: 'Password'),
-              keyboardType: TextInputType.visiblePassword,
-              controller: _passwordTextEditController,
-              autofocus: false,
-              textInputAction: TextInputAction.done,
-              focusNode: _passwordFocus,
-              obscureText: true,
-              validator: (value) {
-                if (value?.isEmpty == true) {
-                  return 'Enter a valid password!';
-                } else if (value!.length < 8) {
-                  return 'Password must be more than 8 characters';
-                }
-                return null;
-              },
-              // onFieldSubmitted: (_) {
-              //   _submit;
-              // },
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: Color.fromARGB(255, 232, 231, 231),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextFormField(
+                  decoration: InputDecoration(labelText: 'E-Mail',
+                  border: InputBorder.none,
+                  ),
+                  keyboardType: TextInputType.emailAddress,
+                  controller: _emailTextEditController,
+                  autofocus: true,
+                  textInputAction: TextInputAction.next,
+                  focusNode: _emailFocus,
+                  validator: (value) {
+                    if (value?.isEmpty == true ||
+                        !RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                            .hasMatch(value!)) {
+                      return 'Enter a valid email!';
+                    }
+                    return null;
+                  },
+                  onFieldSubmitted: (_) {
+                    FocusScope.of(context).requestFocus(_fullNameFocus);
+                  },
+                ),
+              ),
             ),
             SizedBox(
               height: MediaQuery.of(context).size.width * 0.1,
             ),
             Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: Color.fromARGB(255, 232, 231, 231),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextFormField(
+                  decoration: InputDecoration(labelText: 'Name',
+                  border: InputBorder.none,
+                  ),
+                  keyboardType: TextInputType.name,
+                  controller: _fullNameTextEditController,
+                  autofocus: false,
+                  textInputAction: TextInputAction.next,
+                  focusNode: _fullNameFocus,
+                  onFieldSubmitted: (_) {
+                    FocusScope.of(context).requestFocus(_passwordFocus);
+                  },
+                ),
+              ),
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.width * 0.1,
+            ),
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: Color.fromARGB(255, 232, 231, 231),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextFormField(
+                  decoration: InputDecoration(labelText: 'Password',
+                  border: InputBorder.none,
+                  ),
+              
+                  keyboardType: TextInputType.visiblePassword,
+                  controller: _passwordTextEditController,
+                  autofocus: false,
+                  textInputAction: TextInputAction.done,
+                  focusNode: _passwordFocus,
+                  obscureText: true,
+                  validator: (value) {
+                    if (value?.isEmpty == true) {
+                      return 'Enter a valid password!';
+                    } else if (value!.length < 8) {
+                      return 'Password must be more than 8 characters';
+                    }
+                    return null;
+                  },
+                  // onFieldSubmitted: (_) {
+                  //   _submit;
+                  // },
+                ),
+              ),
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.width * 0.1,
+            ),
+            Container(
+               decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        // pink
+                        Colors.pink.shade300,
+                        Color.fromARGB(255, 245, 106, 64),
+                        
+                      ],
+                      begin: Alignment.centerLeft,
+                      end: Alignment.centerRight,
+                    ),
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
               child: SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
+                    elevation: 0.0,
                     primary: Color.fromARGB(255, 245, 106, 64),
                   ),
                   onPressed: () => _submit(

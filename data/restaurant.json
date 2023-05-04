@@ -19,8 +19,8 @@
         ],
         "rating": "4.8",
         "contact": "022 30151234",
-        "dineoutPay": "Yes",
-        "image": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.dineout.co.in%2Fmumbai%2Fchina-bistro-chembur-central-suburbs-19876&psig=AOvVaw1XQtx3GxiEtYMPqEDqrRjG&ust=1682752007783000&source=images&cd=vfe&ved=0CBEQjRxqFwoTCPCOiO-BzP4CFQAAAAAdAAAAABAE"
+        "food_appPay": "Yes",
+        "image": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.food_app.co.in%2Fmumbai%2Fchina-bistro-chembur-central-suburbs-19876&psig=AOvVaw1XQtx3GxiEtYMPqEDqrRjG&ust=1682752007783000&source=images&cd=vfe&ved=0CBEQjRxqFwoTCPCOiO-BzP4CFQAAAAAdAAAAABAE"
 
     },
     {
@@ -43,8 +43,8 @@
         ],
         "rating": "4.8",
         "contact": "022 30151234",
-        "dineoutPay": "Yes",
-        "image": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.dineout.co.in%2Fmumbai%2Fchina-bistro-chembur-central-suburbs-19876&psig=AOvVaw1XQtx3GxiEtYMPqEDqrRjG&ust=1682752007783000&source=images&cd=vfe&ved=0CBEQjRxqFwoTCPCOiO-BzP4CFQAAAAAdAAAAABAE"
+        "food_appPay": "Yes",
+        "image": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.food_app.co.in%2Fmumbai%2Fchina-bistro-chembur-central-suburbs-19876&psig=AOvVaw1XQtx3GxiEtYMPqEDqrRjG&ust=1682752007783000&source=images&cd=vfe&ved=0CBEQjRxqFwoTCPCOiO-BzP4CFQAAAAAdAAAAABAE"
     },
     {
         "name": "Sigree Global Grill",
@@ -66,8 +66,8 @@
         ],
         "rating": "4.5",
         "contact": "022 30151234",
-        "dineoutPay": "Yes",
-        "image": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/9/s/u/p9884-16621888816312fd5171392.jpg?tr=tr:n-xlarge"
+        "food_appPay": "Yes",
+        "image": "https://im1.food_app.co.in/images/uploads/restaurant/sharpen/9/s/u/p9884-16621888816312fd5171392.jpg?tr=tr:n-xlarge"
 
     },
     {
@@ -88,7 +88,7 @@
         ],
         "rating": "5.0",
         "contact": "022 30151234",
-        "dineoutPay": "Yes",
+        "food_appPay": "Yes",
         "image": "https://res.cloudinary.com/dwzmsvp7f/image/fetch/q_75,f_auto,w_1316/https%3A%2F%2Fmedia.insider.in%2Fimage%2Fupload%2Fc_crop%2Cg_custom%2Fv1568205241%2Ffeozva8gonxjrgby4ooi.jpg"
     },
     {
@@ -106,7 +106,7 @@
         ],
         "rating": "4.9",
         "contact": "022 6665 3271",
-        "dineoutPay": "Yes",
+        "food_appPay": "Yes",
         "image": "https://media.cntraveler.com/photos/5dee7549d606100008e741f0/16:9/w_2560,c_limit/The-Taj-Mahal-Palace_2019_Taj-Mahal-Palace,-Mumbai---Corridor-1.jpg"
       },
       {
@@ -124,7 +124,7 @@
         ],
         "rating": "4.5",
         "contact": "022 2282 8185",
-        "dineoutPay": "No",
+        "food_appPay": "No",
         "image": "https://b.zmtcdn.com/data/reviews_photos/17e/11d304f79e4a36a7d040c2d576e7117e_1456069968.jpg?fit=around|771.75:416.25&crop=771.75:416.25;*,*"
       },
       {
@@ -142,7 +142,7 @@
         ],
         "rating": "4.7",
         "contact": "022 4966 6666",
-        "dineoutPay": "Yes",
+        "food_appPay": "Yes",
         "image": "https://b.zmtcdn.com/data/pictures/2/16541542/c7ce3301b7cb36444a0c91694bd554ec.jpg?fit=around|771.75:416.25&crop=771.75:416.25;*,*"
       },
       {
@@ -160,7 +160,7 @@
         ],
         "rating": "4.6",
         "contact": "022 2614 2585",
-        "dineoutPay": "No",
+        "food_appPay": "No",
         "image": "https://im.whatshot.in/img/2020/Jan/gajalee-1580104084.jpg"
       },
       {
@@ -178,7 +178,7 @@
         ],
         "rating": "4.7",
         "contact": "022 2270 3213",
-        "dineoutPay": "Yes",
+        "food_appPay": "Yes",
         "image": "https://media.cntraveler.com/photos/5a78cdcf78fa8363d2ed7cda/16:9/w_2560,c_limit/Trishna__2018_TRISHNA0328.jpg"
       },
       {
@@ -196,7 +196,7 @@
         ],
         "rating": "4.5",
         "contact": "022 6636 8982",
-        "dineoutPay": "Yes",
+        "food_appPay": "Yes",
         "image": "https://indigodeli.com/img/rest-img.jpg"
       }
 

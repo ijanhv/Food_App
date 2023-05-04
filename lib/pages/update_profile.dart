@@ -1,6 +1,6 @@
-import 'package:dineout/pages/home_page.dart';
-import 'package:dineout/pages/profile_page.dart';
-import 'package:dineout/provider/user_provider.dart';
+import 'package:food_app/pages/home_page.dart';
+import 'package:food_app/pages/profile_page.dart';
+import 'package:food_app/provider/user_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -23,7 +23,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
 
   TextEditingController nameController = TextEditingController();
   TextEditingController phoneNumberController = TextEditingController();
-  TextEditingController aboutMeController = TextEditingController();
+  TextEditingController addressController = TextEditingController();
   TextEditingController birthDayController = TextEditingController();
 
   @override
@@ -33,7 +33,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
     if (widget.userData != null) {
       nameController.text = widget.userData!['name'] ?? '';
       phoneNumberController.text = widget.userData!['phoneNumber'] ?? '';
-      aboutMeController.text = widget.userData!['aboutMe'] ?? '';
+      addressController.text = widget.userData!['address'] ?? '';
       birthDayController.text = widget.userData!['birthDay'] ?? '';
     }
   }
@@ -94,13 +94,13 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
     );
   }
 
-  void submitData(name, phoneNumber, aboutMe, birthDay) async {
+  void submitData(name, phoneNumber, address, birthDay) async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     print(userProvider.email);
 
     print("Name: $name");
     print("Phone Number: $phoneNumber");
-    print("About Me: $aboutMe");
+    print("Address: $address");
     print("Birth Day: $birthDay");
 
     // update this in firestore databse by using email
@@ -118,8 +118,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
           .update({
         'name': name,
         'phoneNumber': phoneNumber,
-        'aboutMe': aboutMe,
-        'birthDay': birthDay,
+        'address': address,
       })
           // snackbar
 
@@ -219,10 +218,10 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: textfield(
-                        hintText: 'Enter your about me',
-                        labelText: 'About Me',
-                        controller: aboutMeController,
-                        value: widget.userData?['aboutMe'],
+                        hintText: 'Enter your address',
+                        labelText: 'Address',
+                        controller: addressController,
+                        value: widget.userData?['address'],
                         editable: true),
                   ),
                   Padding(
@@ -247,7 +246,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                           submitData(
                               nameController.text.trim(),
                               phoneNumberController.text.trim(),
-                              aboutMeController.text.trim(),
+                              addressController.text.trim(),
                               birthDayController.text.trim());
                         },
                         child: Center(

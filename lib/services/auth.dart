@@ -1,4 +1,4 @@
-import 'package:dineout/models/user.dart';
+import 'package:food_app/models/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthService {

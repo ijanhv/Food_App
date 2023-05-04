@@ -13,7 +13,7 @@ class Restaurant {
   final String? desc;
   final String? contact;
   final String? features;
-  final String? dineoutPay;
+  final String? food_appPay;
   final int?  discount;
   
 
@@ -30,7 +30,7 @@ class Restaurant {
     this.desc,
     this.contact,
     this.features,
-    this.dineoutPay,
+    this.food_appPay,
     this.discount,
 
   });
